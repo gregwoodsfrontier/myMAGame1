@@ -35,6 +35,8 @@ const Main = () => {
         console.error(err);
       }
     }
+
+    console.log('before phaser')
     
     setConfig({
       type: Phaser.AUTO,
@@ -42,7 +44,8 @@ const Main = () => {
         default: "arcade",
         arcade: {
           gravity: { y: 0 },
-          debug: process.env.NODE_ENV === "development",
+          debug: true
+          //debug: process.env.NODE_ENV === "development",
         },
       },
       scale: {
@@ -65,6 +68,8 @@ const Main = () => {
       },
     });
   }
+
+  console.log('after phaser')
 
   useEffect(() => {
     if (usersAavegotchis && selectedAavegotchiId) {
