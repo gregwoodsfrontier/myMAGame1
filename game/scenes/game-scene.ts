@@ -1,9 +1,10 @@
 import {
-  LEFT_CHEVRON, BG, CLICK
+  LEFT_CHEVRON, BG, CLICK, LICK
 } from 'game/assets';
 import { AavegotchiGameObject } from 'types';
 import { getGameWidth, getGameHeight, getRelative } from '../helpers';
 import { Player } from 'game/objects';
+import { Lick } from 'game/objects';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -17,6 +18,8 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 export class GameScene extends Phaser.Scene {
   private player?: Player;
   private selectedGotchi?: AavegotchiGameObject;
+
+  private lick: Lick
 
   // Sounds
   private back?: Phaser.Sound.BaseSound;
@@ -34,6 +37,13 @@ export class GameScene extends Phaser.Scene {
     this.add.image(getGameWidth(this) / 2, getGameHeight(this) / 2, BG).setDisplaySize(getGameWidth(this), getGameHeight(this));
     this.back = this.sound.add(CLICK, { loop: false });
     this.createBackButton();
+
+    this.lick = new Lick({
+      scene: this,
+      x: getGameWidth(this) * 0.25,
+      y: getGameHeight(this) * 0.25,
+      key: LICK
+    })
 
     // Add a player sprite that can be moved around.
     this.player = new Player({

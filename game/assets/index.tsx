@@ -2,7 +2,7 @@ export interface Asset {
   key: string;
   src: string;
   json?: string;
-  type: 'IMAGE' | 'SVG' | 'SPRITESHEET' | 'AUDIO' | 'ATLAS';
+  type: 'IMAGE' | 'SVG' | 'SPRITESHEET' | 'AUDIO' | 'ATLAS' | 'TILEMAPJSON';
   data?: {
     frameWidth?: number;
     frameHeight?: number;
@@ -42,8 +42,8 @@ export const assets: Array<Asset | SpritesheetAsset> = [
   },
   {
     key: LICK,
-    src: '',
-    json: '',
+    src: 'assets/sprites/lick.png',
+    json: 'assets/sprites/lick.json',
     type: 'ATLAS'
   },
 ];
