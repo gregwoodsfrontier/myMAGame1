@@ -129,7 +129,7 @@ export class BootScene extends Phaser.Scene {
         this.load.audio(file.key, [file.src]);
         break;
       case "TILEMAPJSON":
-        this.load.tilemapTiledJSON(file.key, file.json);
+        this.load.tilemapTiledJSON(file.key, file.src);
         break;
       case "ATLAS":
         this.load.atlas(file.key, [file.src], file.json);

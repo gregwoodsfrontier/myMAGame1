@@ -1,8 +1,8 @@
 import {
-  LEFT_CHEVRON, BG, CLICK, LICK
+  LEFT_CHEVRON, BG, CLICK, LICK, GRASSMAP, PIXELTILE
 } from 'game/assets';
 import { AavegotchiGameObject } from 'types';
-import { getGameWidth, getGameHeight, getRelative } from '../helpers';
+import { getGameWidth, getGameHeight, getRelative, createDebugGraphics } from '../helpers';
 import { Player } from 'game/objects';
 import { Lick } from 'game/objects';
 
@@ -21,9 +21,6 @@ export class GameScene extends Phaser.Scene {
 
   private lick: Lick
 
-  // Sounds
-  private back?: Phaser.Sound.BaseSound;
-
   constructor() {
     super(sceneConfig);
   }
@@ -33,38 +30,72 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create(): void {
+    this.scene.run('UI')
+
     // Add layout
     this.add.image(getGameWidth(this) / 2, getGameHeight(this) / 2, BG).setDisplaySize(getGameWidth(this), getGameHeight(this));
-    this.back = this.sound.add(CLICK, { loop: false });
-    this.createBackButton();
 
-    this.lick = new Lick({
-      scene: this,
-      x: getGameWidth(this) * 0.25,
-      y: getGameHeight(this) * 0.25,
-      key: LICK
-    })
+    const map = this.make.tilemap({ key: GRASSMAP });
+    const tileset = map.addTilesetImage('pixeltile-packed-extruded', PIXELTILE);
 
-    // Add a player sprite that can be moved around.
-    this.player = new Player({
-      scene: this,
-      x: getGameWidth(this) / 2,
-      y: getGameHeight(this) / 2,
-      key: this.selectedGotchi?.spritesheetKey || ''
+    const mapx = getGameWidth(this)/10;
+    const mapy = getGameHeight(this)/2;
+
+    map.createLayer("below", tileset, 0, 0)
+      .setSize(getGameWidth(this), getGameHeight(this))
+      .setScale(1.75);
+    const same = map.createLayer("same", tileset, 0, 0)
+      .setSize(getGameWidth(this), getGameHeight(this))
+      .setScale(1.75);
+    
+    const objectLayer = map.getObjectLayer('objects');
+    objectLayer.objects.forEach(obj => {
+      const {x, y, name} = obj
+      switch(name)
+      {
+        case 'player':
+        {
+          if(!x || !y)
+          {
+            return
+          }
+          this.player = new Player({
+            scene: this,
+            x: getGameWidth(this) * x/800,
+            y: getGameHeight(this) * y/600,
+            key: this.selectedGotchi?.spritesheetKey || ''
+          });
+          break;
+        }
+
+        case 'lick':
+        {
+          if(!x || !y)
+          {
+            return
+          }
+          this.lick = new Lick({
+            scene: this,
+            x: getGameWidth(this) * x/800,
+            y: getGameHeight(this) * y/600,
+            key: LICK
+          });
+          break;
+        }
+      }
     })
+    
+    same.setCollisionByProperty({ collides: true });
+
+    createDebugGraphics(this, same);
+
+    if(this.player)
+    {
+      this.physics.add.collider(this.player, same);
+    }
+    
+    this.physics.add.collider(this.lick.sprite, same);
   }
-
-  private createBackButton = () => {
-    this.add
-      .image(getRelative(54, this), getRelative(54, this), LEFT_CHEVRON)
-      .setOrigin(0)
-      .setInteractive({ useHandCursor: true })
-      .setDisplaySize(getRelative(94, this), getRelative(94, this))
-      .on('pointerdown', () => {
-        this.back?.play();
-        window.history.back();
-      });
-  };
 
   public update(): void {
     // Every frame, we update the player

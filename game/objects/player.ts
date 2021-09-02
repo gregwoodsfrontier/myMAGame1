@@ -26,6 +26,8 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     // physics
     this.scene.physics.world.enable(this);
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setSize(this.displayWidth*0.8, this.displayHeight*0.9);
 
     // input
     this.cursorKeys = scene.input.keyboard.createCursorKeys();
