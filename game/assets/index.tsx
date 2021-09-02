@@ -23,10 +23,20 @@ export const LEFT_CHEVRON = 'left_chevron';
 export const CLICK = 'click';
 export const LICK = 'lick';
 export const GRASSMAP = 'grassmap';
-export const PIXELTILE = 'pixeltile'
+export const PIXELTILE = 'pixeltile';
+export const ALERT = 'alert';
 
 // Save all in game assets in the public folder
 export const assets: Array<Asset | SpritesheetAsset> = [
+  {
+    key: ALERT,
+    src: 'assets/sprites/alert.png',
+    type: 'SPRITESHEET',
+    data: {
+      frameWidth: 320,
+      frameHeight: 640
+    }
+  },
   {
     key: PIXELTILE,
     src: 'assets/maps/pixeltile-packed-extruded.png',

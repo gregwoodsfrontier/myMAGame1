@@ -1,10 +1,11 @@
 import {
-  LEFT_CHEVRON, BG, CLICK, LICK, GRASSMAP, PIXELTILE
+  LEFT_CHEVRON, BG, CLICK, LICK, GRASSMAP, PIXELTILE, ALERT
 } from 'game/assets';
 import { AavegotchiGameObject } from 'types';
 import { getGameWidth, getGameHeight, getRelative, createDebugGraphics } from '../helpers';
 import { Player } from 'game/objects';
 import { Lick } from 'game/objects';
+import { AlertSign } from 'game/objects/alert';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -34,6 +35,15 @@ export class GameScene extends Phaser.Scene {
 
     console.log('selected gotchi wearables');
     console.log(this.selectedGotchi?.equippedWearables)
+
+    // alert sign
+    const alertsign = new AlertSign({
+      scene: this, 
+      x: getGameWidth(this)/2, 
+      y: getGameHeight(this)/2, 
+      key: ALERT
+    });
+    alertsign.sprite.setDepth(10);
 
     // Add layout
     this.add.image(getGameWidth(this) / 2, getGameHeight(this) / 2, BG).setDisplaySize(getGameWidth(this), getGameHeight(this));
