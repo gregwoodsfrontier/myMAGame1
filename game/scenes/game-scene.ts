@@ -30,7 +30,10 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create(): void {
-    this.scene.run('UI')
+    this.scene.run('UI');
+
+    console.log('selected gotchi wearables');
+    console.log(this.selectedGotchi?.equippedWearables)
 
     // Add layout
     this.add.image(getGameWidth(this) / 2, getGameHeight(this) / 2, BG).setDisplaySize(getGameWidth(this), getGameHeight(this));
@@ -87,7 +90,7 @@ export class GameScene extends Phaser.Scene {
     
     same.setCollisionByProperty({ collides: true });
 
-    createDebugGraphics(this, same);
+    //createDebugGraphics(this, same);
 
     if(this.player)
     {

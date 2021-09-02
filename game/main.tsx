@@ -49,7 +49,8 @@ const Main = () => {
         },
       },
       scale: {
-        mode: Phaser.Scale.NONE,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
         width,
         height,
       },

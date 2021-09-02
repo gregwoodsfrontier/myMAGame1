@@ -47,7 +47,7 @@ const Home = () => {
   return (
     <Layout>
       <Panel>
-        <h1>Aavegotchi Moralis Next.js</h1>
+        <h1>SamuGotchi ShowDown</h1>
         <p>Get started by editing <b>pages/index.tsx</b>.</p>
         <Grid>
           <Card href="https://nextjs.org/docs/basic-features/pages" target="_blank">
@@ -65,6 +65,10 @@ const Home = () => {
           <Card href="https://styled-components.com/" target="_blank">
             <h3>Styled components</h3>
             <p>Learn about the CSS-in-JS tool that bridges the gap between components and styling.</p>
+          </Card>
+          <Card target="_blank">
+            <h3>Rules</h3>
+            <p>Be the fastest to show who's boss. Rock-paper-scissors style</p>
           </Card>
         </Grid>
       </Panel>

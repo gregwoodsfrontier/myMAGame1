@@ -154,6 +154,7 @@ export class BootScene extends Phaser.Scene {
   ) => {
     const svg = gotchiObject.svg;
     const spriteMatrix = [
+      // flap gotchi
       [
         customiseSvg(svg, { removeBg: true }),
         customiseSvg(svg, {
@@ -163,6 +164,26 @@ export class BootScene extends Phaser.Scene {
           removeBg: true,
         }),
       ],
+      // dead gotchi
+      [
+        customiseSvg(svg, { removeBg: true }),
+        customiseSvg(svg, {
+          eyes: "sleeping",
+          armsUp: false,
+          mouth: "neutral",
+          removeBg: true
+        }),
+      ],
+      // angry gotchi
+      [
+        customiseSvg(svg, { removeBg: true }),
+        customiseSvg(svg, {
+          eyes: "mad",
+          armsUp: false,
+          mouth: "neutral",
+          removeBg: true
+        }),
+      ]
     ];
 
     const { src, dimensions } = await constructSpritesheet(spriteMatrix);
