@@ -1,0 +1,148 @@
+{"frames": [
+
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-1-Front.svg",
+	"frame": {"x":265,"y":1,"w":42,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":31,"w":42,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-2-Front.svg",
+	"frame": {"x":257,"y":69,"w":42,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":31,"w":42,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-3-Front.svg",
+	"frame": {"x":213,"y":137,"w":42,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":31,"w":42,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-4-Front.svg",
+	"frame": {"x":301,"y":69,"w":42,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":31,"w":42,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-5-Front-Tongue.svg",
+	"frame": {"x":257,"y":137,"w":42,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":31,"w":42,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-6-Front-Tongue-Long.svg",
+	"frame": {"x":1,"y":137,"w":42,"h":70},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":31,"w":42,"h":70},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-7-Right.svg",
+	"frame": {"x":301,"y":137,"w":36,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":31,"w":36,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-8-Right-Tongue.svg",
+	"frame": {"x":199,"y":69,"w":56,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":31,"w":56,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-9-Right-Tongue.svg",
+	"frame": {"x":199,"y":1,"w":64,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":32,"y":31,"w":64,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-10-Right-Tongue.svg",
+	"frame": {"x":109,"y":1,"w":88,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":20,"y":31,"w":88,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-11-Right-Tongue.svg",
+	"frame": {"x":1,"y":1,"w":106,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":31,"w":106,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-12-Back.svg",
+	"frame": {"x":169,"y":137,"w":42,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":31,"w":42,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-13-Left.svg",
+	"frame": {"x":309,"y":1,"w":36,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":46,"y":31,"w":36,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-14-Left-Tongue.svg",
+	"frame": {"x":111,"y":137,"w":56,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":31,"w":56,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-15-Left-Tongue.svg",
+	"frame": {"x":45,"y":137,"w":64,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":32,"y":31,"w":64,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-16-Left-Tongue.svg",
+	"frame": {"x":109,"y":69,"w":88,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":20,"y":31,"w":88,"h":66},
+	"sourceSize": {"w":128,"h":128}
+},
+{
+	"filename": "Aavegotchi-Lickquidators-Gaame-Jaam-17-Left-Tongue.svg",
+	"frame": {"x":1,"y":69,"w":106,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":31,"w":106,"h":66},
+	"sourceSize": {"w":128,"h":128}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "lick.png",
+	"format": "RGBA8888",
+	"size": {"w":346,"h":208},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:015a55fa246a7caf735cfc52bd9a0131:db377d099a39ab958a20e1b23917a4f8:328040d040b62f4d782e65511735a128$"
+}
+}

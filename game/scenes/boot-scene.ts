@@ -128,6 +128,9 @@ export class BootScene extends Phaser.Scene {
       case "AUDIO":
         this.load.audio(file.key, [file.src]);
         break;
+      case "ATLAS":
+        this.load.atlas(file.key, [file.src], file.json);
+        break;
       case "SPRITESHEET":
         this.load.spritesheet(
           file.key,
