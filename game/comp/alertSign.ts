@@ -13,7 +13,7 @@ export class AlertSign
     {
         this.scene = scene;
         this.scene.events.once(Phaser.Scenes.Events.UPDATE, this.start, this);
-        this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
+        //this.scene.events.on(Phaser.Scenes.Events.UPDATE, this.update, this);
         this.scene.events.on(Phaser.Scenes.Events.DESTROY, this.destroy, this);
 
     }
@@ -21,7 +21,7 @@ export class AlertSign
     destroy()
     {
         this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.start, this);
-        this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.update, this);
+        //this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.update, this);
     }
 
     start()
@@ -32,7 +32,7 @@ export class AlertSign
             getGameHeight(this.scene)/2,
             ALERT
         )
-        .setScale(0.75);
+        .setScale(0.75).setDepth(10).setVisible(false);
 
         this.sign.anims.create({
             key: 'flash',
@@ -43,23 +43,14 @@ export class AlertSign
             repeat: -1,
             frameRate: 10
         })
-        this.sign.play('flash');
-        this.sign.setDepth(10).setVisible(false);
-
-        this.spacebar = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        //this.sign.play('flash');
 
     }
 
-    update()
+    /* update()
     {
-        if (Phaser.Input.Keyboard.JustDown(this.spacebar))
-        {
-            this.sign.setVisible(true);
-            this.scene.time.delayedCall(500, () => {
-                
-            })
-        }
-    }
+
+    } */
 
     flash(flashTime: number)
     {
