@@ -1,4 +1,5 @@
 import { getGameHeight } from 'game/helpers';
+import { eventcenter } from 'game/scenes/eventcenter';
 import { EventKeys } from 'game/scenes/eventKeys';
 import { ShoDown } from 'game/types/type';
 import Phaser from 'phaser'
@@ -48,29 +49,40 @@ export class InputComponent extends UserComponent
         .setVisible(false)
         .setDepth(10);
 
+        console.log(`player can press: ${this.canPress}`);
+
     }
 
     update()
     {
         let sho: ShoDown
-        if(this.canPress && Phaser.Input.Keyboard.JustDown(this.throwKey))
+        if(Phaser.Input.Keyboard.JustDown(this.throwKey))
         {
             sho = 'THROW';
+            this.shoDownText.setText(sho).setVisible(true);
             // emit an event
-            this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
+            // this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
+            eventcenter.emit(EventKeys.PLAYER_SHODOWN, sho);
         }
-        else if(this.canPress && Phaser.Input.Keyboard.JustDown(this.slashKey))
+        else if(Phaser.Input.Keyboard.JustDown(this.slashKey))
         {
             sho = 'SLASH';
+            this.shoDownText.setText(sho).setVisible(true);
             // emit an event
             this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
         }
-        else if(this.canPress && Phaser.Input.Keyboard.JustDown(this.guardKey))
+        else if(Phaser.Input.Keyboard.JustDown(this.guardKey))
         {
             sho = 'GUARD';
+            this.shoDownText.setText(sho).setVisible(true);
             // emit an event
             this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
         }
+        else
+        {
+            this.shoDownText.setVisible(false);
+        }
+
     }
 
     // check if the 'canPress' is true. If not then the player/enemy trips

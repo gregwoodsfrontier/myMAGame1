@@ -32,7 +32,9 @@ export class AlertSign
             getGameHeight(this.scene)/2,
             ALERT
         )
-        .setScale(0.75);
+        .setScale(0.75)
+        .setDepth(10)
+        .setVisible(false);
 
         this.sign.anims.create({
             key: 'flash',
@@ -43,8 +45,7 @@ export class AlertSign
             repeat: -1,
             frameRate: 10
         })
-        this.sign.play('flash');
-        this.sign.setDepth(10).setVisible(false);
+        //this.sign.play('flash');
 
         this.spacebar = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
@@ -63,7 +64,8 @@ export class AlertSign
 
     flash(flashTime: number)
     {
-        this.sign.setVisible(true)
+        this.sign.setVisible(true);
+        this.sign.play('flash');
         this.scene.time.delayedCall(flashTime, () => {
             this.sign.setVisible(false);
         })
