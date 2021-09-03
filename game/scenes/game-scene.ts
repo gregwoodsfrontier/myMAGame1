@@ -5,7 +5,8 @@ import { AavegotchiGameObject } from 'types';
 import { getGameWidth, getGameHeight, getRelative, createDebugGraphics } from '../helpers';
 import { Player } from 'game/objects';
 import { Lick } from 'game/objects';
-import { AlertSign } from 'game/objects/alert';
+import { InputComponent } from 'game/comp/input';
+import { AlertSign } from 'game/comp/alertSign';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -13,13 +14,40 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   key: 'Game',
 };
 
+type ShoDown = 'THROW' | 'SLASH' | 'GUARD' ;
+
+const judge = (playerIn: ShoDown, enemyIn: ShoDown) => {
+  console.log(`player show ${playerIn}`);
+  console.log(`enemy show ${enemyIn}`);
+
+  if(playerIn === enemyIn)
+  {
+    console.log('It is a draw')
+  }
+
+  switch(playerIn)
+  {
+    case 'THROW': {
+      if(enemyIn === 'GUARD')
+      {
+        console.log('player wins')
+      }
+
+      if(enemyIn === 'SLASH')
+      {
+        console.log('enemy wins')
+      }
+    }
+  }
+}
+
 /**
  * Scene where gameplay takes place
  */
 export class GameScene extends Phaser.Scene {
   private player?: Player;
   private selectedGotchi?: AavegotchiGameObject;
-
+  private alertsign: AlertSign
   private lick: Lick
 
   constructor() {
@@ -31,19 +59,8 @@ export class GameScene extends Phaser.Scene {
   };
 
   public create(): void {
+
     this.scene.run('UI');
-
-    console.log('selected gotchi wearables');
-    console.log(this.selectedGotchi?.equippedWearables)
-
-    // alert sign
-    const alertsign = new AlertSign({
-      scene: this, 
-      x: getGameWidth(this)/2, 
-      y: getGameHeight(this)/2, 
-      key: ALERT
-    });
-    alertsign.sprite.setDepth(10);
 
     // Add layout
     this.add.image(getGameWidth(this) / 2, getGameHeight(this) / 2, BG).setDisplaySize(getGameWidth(this), getGameHeight(this));
@@ -105,9 +122,12 @@ export class GameScene extends Phaser.Scene {
     if(this.player)
     {
       this.physics.add.collider(this.player, same);
+      new InputComponent(this.player);
     }
-    
     this.physics.add.collider(this.lick.sprite, same);
+
+    this.alertsign = new AlertSign(this);
+    //this.alertsign.sign.setVisible(true);
   }
 
   public update(): void {

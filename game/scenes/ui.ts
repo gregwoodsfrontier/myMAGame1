@@ -80,7 +80,7 @@ export default class UIScene extends Phaser.Scene
 
     update()
     {
-        if(this.cursorKeys)
+        /* if(this.cursorKeys)
         {
             if(Phaser.Input.Keyboard.JustDown(this.cursorKeys?.right))
             {   
@@ -92,7 +92,7 @@ export default class UIScene extends Phaser.Scene
             }
         }
         this.pScoreText.setText(`${this.pScore}`);
-        this.eScoreText.setText(`${this.eScore}`);
+        this.eScoreText.setText(`${this.eScore}`); */
 
     }
 
