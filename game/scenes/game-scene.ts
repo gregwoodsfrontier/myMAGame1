@@ -18,7 +18,7 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
 };
 
 
-const judge = (playerIn: ShoDown|undefined, enemyIn: ShoDown|undefined) => {
+const judgeCat = (playerIn: ShoDown|undefined, enemyIn: ShoDown|undefined) => {
   // keeps updating to see if there are any input
   if(!playerIn || !enemyIn)
   {
@@ -188,7 +188,7 @@ export class GameScene extends Phaser.Scene {
     // to determine the who is the boss
     if(this.playerSho && this.enemySho)
     {
-      judge(this.playerSho, this.enemySho);
+      judgeCat(this.playerSho, this.enemySho);
       this.playerSho = undefined;
       this.enemySho = undefined;
     }
