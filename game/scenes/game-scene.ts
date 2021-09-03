@@ -10,6 +10,7 @@ import { AlertSign } from 'game/comp/alertSign';
 import { AIController } from 'game/comp/AIController';
 import { ShoDown } from 'game/types/type';
 import { EventKeys } from './eventKeys';
+import { eventcenter } from './eventcenter';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -172,9 +173,11 @@ export class GameScene extends Phaser.Scene {
     this.flagRT = this.calcTimeToFlag();
 
     // event-listeners
-    this.events.on(EventKeys.PLAYER_SHODOWN, this.setPlayerSho, this);
+    // this.events.on(EventKeys.PLAYER_SHODOWN, this.setPlayerSho, this);
     // just set the enemysho for now
-    this.events.on(EventKeys.ENEMY_SHODOWN, this.setEnemySho, this);
+    // this.events.on(EventKeys.ENEMY_SHODOWN, this.setEnemySho, this);
+    eventcenter.on(EventKeys.PLAYER_SHODOWN, this.setPlayerSho, this);
+    eventcenter.on(EventKeys.ENEMY_SHODOWN, this.setEnemySho, this);
 
     // wake-up scene
     this.events.emit("scene-awake");

@@ -3,7 +3,7 @@ import { EventKeys } from 'game/scenes/eventKeys';
 import { ShoDown } from 'game/types/type';
 import Phaser from 'phaser'
 import UserComponent from './userComponent';
-
+import { eventcenter } from 'game/scenes/eventcenter';
 
 export class InputComponent extends UserComponent
 {
@@ -38,7 +38,7 @@ export class InputComponent extends UserComponent
     {
         this.shoDownText = this.scene.add.text(
             this.gameobject.x,
-            this.gameobject.y + getGameHeight(this.scene)*40/600,
+            this.gameobject.y - getGameHeight(this.scene)*40/600,
             `PICK`,
             {
                 fontSize: '128px'
@@ -51,28 +51,39 @@ export class InputComponent extends UserComponent
 
     update()
     {
-        
         let sho: ShoDown
         if(Phaser.Input.Keyboard.JustDown(this.throwKey))
         {
             //this.throwKey.isDown
             //Phaser.Input.Keyboard.JustDown(this.throwKey)
             sho = 'THROW';
+            this.shoDownText.setText(sho).setVisible(true);
             // emit an event
-            this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
+            // this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
+            eventcenter.emit(EventKeys.PLAYER_SHODOWN, sho);
 
         }
         else if(Phaser.Input.Keyboard.JustDown(this.slashKey))
         {
             sho = 'SLASH';
+            this.shoDownText.setText(sho).setVisible(true);
             // emit an event
-            this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
+            // this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
+            eventcenter.emit(EventKeys.PLAYER_SHODOWN, sho);
         }
         else if(Phaser.Input.Keyboard.JustDown(this.guardKey))
         {
             sho = 'GUARD';
+            this.shoDownText.setText(sho).setVisible(true);
             // emit an event
-            this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
+            // this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
+            eventcenter.emit(EventKeys.PLAYER_SHODOWN, sho);
+        }
+        else
+        {
+            this.scene.time.delayedCall(1500, () => {
+                this.shoDownText.setVisible(false);
+            })
         }
     }
 
