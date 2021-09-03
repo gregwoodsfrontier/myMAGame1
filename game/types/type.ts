@@ -1,0 +1,1 @@
+export type ShoDown = 'THROW' | 'SLASH' | 'GUARD' ;

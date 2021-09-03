@@ -56,9 +56,17 @@ export class AlertSign
         {
             this.sign.setVisible(true);
             this.scene.time.delayedCall(500, () => {
-                this.sign.setVisible(false);
+                
             })
         }
+    }
+
+    flash(flashTime: number)
+    {
+        this.sign.setVisible(true)
+        this.scene.time.delayedCall(flashTime, () => {
+            this.sign.setVisible(false);
+        })
     }
 
 }
