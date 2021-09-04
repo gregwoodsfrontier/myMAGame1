@@ -11,6 +11,16 @@ import { Tuple } from "types";
 };
 
 /**
+ * Removes eye wearables from Aavegotchi SVG. Customized by ricJones.
+ * @param {string} svg - SVG you want to customise
+ * @returns {string} Returns customised SVG
+ */
+ export const removeGlasses = (svg: string) => {
+  const styledSvg = svg.replace("<style>", "<style>.gotchi-wearable wearable-eyes{display: none}");
+  return styledSvg;
+};
+
+/**
  * Removes background from Aavegotchi SVG
  * @param {string} svg - SVG you want to customise
  * @returns {string} Returns customised SVG
@@ -210,6 +220,7 @@ export function replaceParts(svg: string, element: ReplaceElement) {
 
 
 export type CustomiseOptions = {
+  removeGlasses?: boolean,
   removeBg?: boolean,
   eyes?: keyof typeof eyes,
   mouth?: keyof typeof mouths,
@@ -232,6 +243,8 @@ export const customiseSvg = (svg: string, options: CustomiseOptions, equipped?: 
     const value = options[option];
     if (value) {
       switch (option) {
+        case 'removeGlasses':
+          return styledSvg = removeGlasses(styledSvg);
         case 'removeBg':
           return styledSvg = removeBG(styledSvg);
         case 'eyes':

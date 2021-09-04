@@ -157,12 +157,13 @@ export class BootScene extends Phaser.Scene {
     const spriteMatrix = [
       // flap gotchi
       [
-        customiseSvg(svg, { removeBg: true }),
+        customiseSvg(svg, { removeBg: true, removeGlasses: true }),
         customiseSvg(svg, {
           armsUp: true,
           eyes: "happy",
           float: true,
           removeBg: true,
+          removeGlasses: true
         }),
       ],
       // dead gotchi

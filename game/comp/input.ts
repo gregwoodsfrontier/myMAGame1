@@ -1,17 +1,21 @@
+<<<<<<< HEAD
 import { getGameHeight } from 'game/helpers';
 import { eventcenter } from 'game/scenes/eventcenter';
+=======
+import { getGameHeight, getRelative } from 'game/helpers';
+>>>>>>> shoLogicVA
 import { EventKeys } from 'game/scenes/eventKeys';
 import { ShoDown } from 'game/types/type';
 import Phaser from 'phaser'
-import { threadId } from 'worker_threads';
 import UserComponent from './userComponent';
-
+import { eventcenter } from 'game/scenes/eventcenter';
+import { playerGuard, playerTrip } from './tweenManage';
 
 export class InputComponent extends UserComponent
 {
     private gameobject: Phaser.GameObjects.Sprite
     private shoDownText: Phaser.GameObjects.Text
-    private canPress = true;
+    private canPress = false;
     private throwKey: Phaser.Input.Keyboard.Key
     private slashKey: Phaser.Input.Keyboard.Key
     private guardKey: Phaser.Input.Keyboard.Key
@@ -40,7 +44,7 @@ export class InputComponent extends UserComponent
     {
         this.shoDownText = this.scene.add.text(
             this.gameobject.x,
-            this.gameobject.y + getGameHeight(this.scene)*40/600,
+            this.gameobject.y - getRelative(200, this.scene),
             `PICK`,
             {
                 fontSize: '128px'
@@ -49,12 +53,25 @@ export class InputComponent extends UserComponent
         .setVisible(false)
         .setDepth(10);
 
+<<<<<<< HEAD
         console.log(`player can press: ${this.canPress}`);
+=======
+        eventcenter.on(EventKeys.P_SHODOWN_ON, () => {
+            this.canPress = true;
+            console.log(`player canPress: ${this.canPress}`);
+        }, this);
+
+        eventcenter.on(EventKeys.P_SHODOWN_OFF, () => {
+            this.canPress = false;
+            console.log(`player canPress: ${this.canPress}`);
+        }, this);
+>>>>>>> shoLogicVA
 
     }
 
     update()
     {
+<<<<<<< HEAD
         let sho: ShoDown
         if(Phaser.Input.Keyboard.JustDown(this.throwKey))
         {
@@ -84,15 +101,122 @@ export class InputComponent extends UserComponent
         }
 
     }
+=======
+        this.checkPlayerShoDown()       
+    }
 
-    // check if the 'canPress' is true. If not then the player/enemy trips
-    checkIfRightTime()
+    checkPlayerShoDown()
     {
-        if(this.canPress === false)
+        if(Phaser.Input.Keyboard.JustDown(this.throwKey))
         {
-            console.log('the player trips');
-            // make trip animation
+            this.shoDownText.setText('THROW').setVisible(true);
+            this.scene.time.delayedCall(1500, () => {
+                this.shoDownText.setVisible(false);
+            })
+
+            if(this.canPress === false)
+            {
+                // trip disabled the throw, slash, guard key
+                playerTrip(
+                    this.scene, 
+                    this.gameobject, 
+                    this.throwKey, 
+                    this.guardKey, 
+                    this.slashKey
+                );
+                return;
+            }
+            else
+            {
+                // player just dash foward
+                playerGuard(this.scene,
+                    this.gameobject,
+                    [
+                        this.throwKey,
+                        this.slashKey,
+                        this.guardKey
+                    ]
+                )
+
+                // emit the event of pass player shodown 
+                eventcenter.emit(EventKeys.PLAYER_SHODOWN, 'THROW');
+            }
         }
+
+        if(Phaser.Input.Keyboard.JustDown(this.guardKey))
+        {
+            this.shoDownText.setText('GUARD').setVisible(true);
+            this.scene.time.delayedCall(1500, () => {
+                this.shoDownText.setVisible(false);
+            })
+
+            if(this.canPress === false)
+            {
+                // trip disabled the throw, slash, guard key
+                playerTrip(
+                    this.scene, 
+                    this.gameobject, 
+                    this.throwKey, 
+                    this.guardKey, 
+                    this.slashKey
+                );
+                return;
+            }
+            else
+            {
+                // player just dash foward
+                playerGuard(this.scene,
+                    this.gameobject,
+                    [
+                        this.throwKey,
+                        this.slashKey,
+                        this.guardKey
+                    ]
+                )
+
+                // emit the event of pass player shodown 
+                eventcenter.emit(EventKeys.PLAYER_SHODOWN, 'GUARD');
+            }
+        }
+>>>>>>> shoLogicVA
+
+        if(Phaser.Input.Keyboard.JustDown(this.slashKey))
+        {
+            this.shoDownText.setText('SLASH').setVisible(true);
+            this.scene.time.delayedCall(1500, () => {
+                this.shoDownText.setVisible(false);
+            })
+
+            if(this.canPress === false)
+            {
+                // trip disabled the throw, slash, guard key
+                playerTrip(
+                    this.scene, 
+                    this.gameobject, 
+                    this.throwKey, 
+                    this.guardKey, 
+                    this.slashKey
+                );
+                return;
+            }
+            else
+            {
+                // player just dash foward
+                playerGuard(this.scene,
+                    this.gameobject,
+                    [
+                        this.throwKey,
+                        this.slashKey,
+                        this.guardKey
+                    ]
+                )
+                
+                // emit the event of pass player shodown 
+                eventcenter.emit(EventKeys.PLAYER_SHODOWN, 'SLASH');
+            }
+        }
+        
+        
     }
 
 }
