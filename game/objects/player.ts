@@ -45,7 +45,8 @@ export class Player extends Phaser.GameObjects.Sprite {
     this.cursorKeys = scene.input.keyboard.createCursorKeys();
 
     this.scene.add.existing(this);
-    this.anims.play('idle', false);
+    //this.anims.play('idle', false);
+    this.anims.play('right', false);
   }
 
   update(): void {
