@@ -1,5 +1,6 @@
 import { LICK } from "game/assets";
 import { getGameWidth, getGameHeight } from "game/helpers";
+import { AnimeKeys, AnimationManage } from 'game/comp/animationManage'
 
 interface Props {
     scene: Phaser.Scene;
@@ -9,17 +10,13 @@ interface Props {
     frame?: number;
 }
 
-enum AnimeKeys
-{
-    IDLE = 'lick-idle',
-    IDLEPLAY = 'lick-idle-play',
-    FRONTLICK = 'lick-front-lick'
-}
-
 export class Lick {
     public sprite: Phaser.GameObjects.Sprite
+    //private animeManage: AnimationManage
+
     constructor({ scene, x, y, key }: Props)
     {   
+        //this.animeManage = new AnimationManage(scene);
         this.sprite = scene.add.sprite(x, y, key);
         this.sprite.setOrigin(0, 0);
         this.createAnimations();
@@ -43,7 +40,7 @@ export class Lick {
 
     private createAnimations()
     {
-        this.sprite.anims.create({
+        /* this.sprite.anims.create({
             key: AnimeKeys.IDLE,
             frames: this.sprite.anims.generateFrameNames(LICK, {
                 prefix: "Aavegotchi-Lickquidators-Gaame-Jaam-",
@@ -61,8 +58,8 @@ export class Lick {
                 end: 4
             }),
             repeat: -1,
-            frameRate: 2,
-        });
+            frameRate: 10,
+        }); */
 
         this.sprite.anims.create({
             key: AnimeKeys.FRONTLICK,

@@ -1,1 +1,1 @@
-export type ShoDown = 'THROW' | 'SLASH' | 'GUARD' ;
+export type ShoDown = 'THROW' | 'SLASH' | 'GUARD' | 'TRIP' ;

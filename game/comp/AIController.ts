@@ -1,3 +1,4 @@
+import { eventcenter } from 'game/scenes/eventcenter';
 import { EventKeys } from 'game/scenes/eventKeys';
 import { ShoDown } from 'game/types/type';
 import Phaser from 'phaser'
@@ -6,7 +7,7 @@ import UserComponent from './userComponent';
 export class AIController extends UserComponent
 {
     private gameObject: Phaser.GameObjects.Sprite
-    private canPress = true;
+    private canPress = false;
 
     constructor(gameObject: Phaser.GameObjects.Sprite)
     {
@@ -26,20 +27,26 @@ export class AIController extends UserComponent
 
     start()
     {
-        /* this.scene.time.addEvent({
-            startAt: 1000,
-            delay: 5000,
+        eventcenter.on(EventKeys.P_SHODOWN_ON, () => {
+            this.canPress = true;
+        });
+
+        eventcenter.on(EventKeys.E_SHODOWN_OFF, () => {
+            this.canPress = false;
+        });
+
+        this.createTimerEvent();
+    }
+
+    createTimerEvent()
+    {
+        this.scene.time.addEvent({
+            delay: 5500,
             callback: () => {
-                console.log('enemy has given shoDown')
-                if(this.canPress)
-                {
-                    const es = this.giveAIShoDown();
-                    this.scene.events.emit(EventKeys.ENEMY_SHODOWN, es);
-                }
+                eventcenter.emit(EventKeys.ENEMY_SHODOWN, this.giveAIShoDown())
             },
-            callbackScope: this.scene,
-            repeat: 2
-        }) */
+            callbackScope: this.scene
+        })
     }
 
     giveAIShoDown(): ShoDown

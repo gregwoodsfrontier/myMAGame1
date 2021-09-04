@@ -37,25 +37,25 @@ export const KUIMPACT = 'kunai-impact';
 export const assets: Array<Asset | SpritesheetAsset> = [
   {
     key: KUIMPACT,
-    src: 'assets/sprites/kunai/kunai-impact-160px.png',
+    src: 'assets/sprites/kunai/impact-160px.png',
     type: 'SPRITESHEET',
     data: {
-      frameWidth: 320,
-      frameHeight: 320
+      frameWidth: 160,
+      frameHeight: 160
     }
   },
   {
     key: KUTHROW,
-    src: 'assets/sprites/kunai/kunai-throw-320px.png',
+    src: 'assets/sprites/kunai/throw.png',
     type: 'SPRITESHEET',
     data: {
-      frameWidth: 320,
-      frameHeight: 320
+      frameWidth: 1280/4,
+      frameHeight: 160
     }
   },
   {
     key: KUSTART,
-    src: 'assets/sprites/kunai/kunai-start-160px.png',
+    src: 'assets/sprites/kunai/start-160px.png',
     type: 'SPRITESHEET',
     data: {
       frameWidth: 160,

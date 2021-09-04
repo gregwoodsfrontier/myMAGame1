@@ -1,14 +1,27 @@
-import { CLASH320PX, KUIMPACT, KUSTART, KUTHROW, SHIELD320PX, SLASH320PX } from "game/assets";
+import { 
+    CLASH320PX, 
+    KUIMPACT, 
+    KUSTART, 
+    KUTHROW, 
+    SHIELD320PX, 
+    SLASH320PX, 
+    LICK,
+    ALERT 
+} from "game/assets";
 import Phaser from "phaser";
 
-enum AnimeKeys
+export enum AnimeKeys
 {
     A_KUSTART = 'a-kustart',
     A_KUTHROW = 'a-kuthrow',
     A_KUIMPACT = 'a-kuimpact',
     A_CLASH = 'a-clash',
     A_SLASH = 'a-slash',
-    A_SHIELDMED = 'a-shield-med'
+    A_SHIELDMED = 'a-shield-med',
+    IDLE = 'lick-idle',
+    IDLEPLAY = 'lick-idle-play',
+    FRONTLICK = 'lick-front-lick',
+    FLASH = 'flash'
 }
 
 export class AnimationManage {
@@ -106,6 +119,50 @@ export class AnimationManage {
             frameRate: 12,
             repeat: 0
         });
+
+        // lick idle
+        this.scene.anims.create({
+            key: AnimeKeys.IDLE,
+            frames: this.scene.anims.generateFrameNames(LICK, {
+                prefix: "Aavegotchi-Lickquidators-Gaame-Jaam-",
+                suffix: "-Front.svg",
+                start: 1
+            })
+        });
+
+        this.scene.anims.create({
+            key: AnimeKeys.IDLEPLAY,
+            frames: this.scene.anims.generateFrameNames(LICK, {
+                prefix: "Aavegotchi-Lickquidators-Gaame-Jaam-",
+                suffix: "-Front.svg",
+                start: 1,
+                end: 4
+            }),
+            repeat: -1,
+            frameRate: 10,
+        });
+
+        this.scene.anims.create({
+            key: AnimeKeys.FRONTLICK,
+            frames: this.scene.anims.generateFrameNames(LICK, {
+                prefix: "Aavegotchi-Lickquidators-Gaame-Jaam-",
+                suffix: "-Front-Tongue.svg",
+                start: 5,
+                end: 6
+            }),
+            repeat: -1,
+            frameRate: 2,
+        });
+
+        this.scene.anims.create({
+            key: 'flash',
+            frames: this.scene.anims.generateFrameNumbers(ALERT, {
+                start: 0,
+                end: 1
+            }),
+            repeat: -1,
+            frameRate: 10
+        })
 
     }
 
