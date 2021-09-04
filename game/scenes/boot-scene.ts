@@ -24,6 +24,7 @@ export class BootScene extends Phaser.Scene {
   private progressBarContainer?: Phaser.GameObjects.Rectangle;
   private progressBar?: Phaser.GameObjects.Rectangle;
   private loadingText?: Phaser.GameObjects.Text;
+  private startScene = "Game"
 
   constructor() {
     super(sceneConfig);
@@ -69,7 +70,7 @@ export class BootScene extends Phaser.Scene {
    */
   private startGame = () => {
     if (this.assetsLoaded) {
-      this.scene.start("Game", { selectedGotchi: this.gotchi });
+      this.scene.start(this.startScene, { selectedGotchi: this.gotchi });
     }
   };
 
