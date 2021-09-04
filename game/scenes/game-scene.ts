@@ -107,15 +107,12 @@ export class GameScene extends Phaser.Scene {
     const map = this.make.tilemap({ key: GRASSMAP });
     const tileset = map.addTilesetImage('pixeltile-packed-extruded', PIXELTILE);
 
-    const mapx = getGameWidth(this)/10;
-    const mapy = getGameHeight(this)/2;
-
     map.createLayer("below", tileset, 0, 0)
-      //.setSize(getGameWidth(this), getGameHeight(this))
-      .setScale(1.75);
+      .setDisplaySize(getGameWidth(this)*1.1, getGameHeight(this)*1.1)
+      //.setScale(1.75);
     const same = map.createLayer("same", tileset, 0, 0)
-      //.setSize(getGameWidth(this), getGameHeight(this))
-      .setScale(1.75);
+      .setDisplaySize(getGameWidth(this)*1.1, getGameHeight(this)*1.1)
+      //.setScale(1.75);
     
     const objectLayer = map.getObjectLayer('objects');
     objectLayer.objects.forEach(obj => {
@@ -130,8 +127,8 @@ export class GameScene extends Phaser.Scene {
           }
           this.player = new Player({
             scene: this,
-            x: getGameWidth(this) * x/800 + 100,
-            y: getGameHeight(this) * y/600 + 90,
+            x: getGameWidth(this) * x/800 + getRelative(100, this),
+            y: getGameHeight(this) * y/600 + getRelative(50, this),
             key: this.selectedGotchi?.spritesheetKey || ''
           }).setOrigin(0.5, 0.5);
           break;
@@ -146,7 +143,7 @@ export class GameScene extends Phaser.Scene {
           this.lick = new Lick({
             scene: this,
             x: getGameWidth(this) * x/800,
-            y: getGameHeight(this) * y/600,
+            y: getGameHeight(this) * y/600 - getRelative(50, this),
             key: LICK
           });
           break;
