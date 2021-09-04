@@ -22,9 +22,16 @@ export const FULLSCREEN = 'fullscreen';
 export const LEFT_CHEVRON = 'left_chevron';
 export const CLICK = 'click';
 export const LICK = 'lick';
+export const GRASSMAP = 'grassmap';
+export const PIXELTILE = 'pixeltile'
 
 // Save all in game assets in the public folder
 export const assets: Array<Asset | SpritesheetAsset> = [
+  {
+    key: PIXELTILE,
+    src: 'assets/maps/pixeltile-packed-extruded.png',
+    type: 'IMAGE'
+  },
   {
     key: BG,
     src: 'assets/images/bg.png',
@@ -46,4 +53,9 @@ export const assets: Array<Asset | SpritesheetAsset> = [
     json: 'assets/sprites/lick.json',
     type: 'ATLAS'
   },
+  {
+    key: GRASSMAP,
+    src: 'assets/maps/grass.json',
+    type: 'TILEMAPJSON'
+  }
 ];

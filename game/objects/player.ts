@@ -26,18 +26,21 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     // physics
     this.scene.physics.world.enable(this);
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setSize(this.displayWidth*0.8, this.displayHeight*0.9);
 
     // input
     this.cursorKeys = scene.input.keyboard.createCursorKeys();
 
     this.scene.add.existing(this);
+    this.anims.play('idle', false);
   }
 
   update(): void {
     // Every frame, we create a new velocity for the sprite based on what keys the player is holding down.
     const velocity = new Phaser.Math.Vector2(0, 0);
     // Horizontal movement
-    switch (true) {
+    /* switch (true) {
       case this.cursorKeys?.left.isDown:
         velocity.x -= 1;
         this.anims.play('idle', false);
@@ -48,10 +51,10 @@ export class Player extends Phaser.GameObjects.Sprite {
         break;
       default:
         this.anims.play('idle', true);
-    }
+    } */
 
     // Vertical movement
-    switch (true) {
+    /* switch (true) {
       case this.cursorKeys?.down.isDown:
         velocity.y += 1;
         this.anims.play('idle', false);
@@ -62,7 +65,7 @@ export class Player extends Phaser.GameObjects.Sprite {
         break;
       default:
         this.anims.play('idle', true);
-    }
+    } */
 
     // We normalize the velocity so that the player is always moving at the same speed, regardless of direction.
     const normalizedVelocity = velocity.normalize();
