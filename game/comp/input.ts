@@ -2,7 +2,6 @@ import { getGameHeight } from 'game/helpers';
 import { EventKeys } from 'game/scenes/eventKeys';
 import { ShoDown } from 'game/types/type';
 import Phaser from 'phaser'
-import { threadId } from 'worker_threads';
 import UserComponent from './userComponent';
 
 
@@ -52,20 +51,24 @@ export class InputComponent extends UserComponent
 
     update()
     {
+        
         let sho: ShoDown
-        if(this.canPress && Phaser.Input.Keyboard.JustDown(this.throwKey))
+        if(Phaser.Input.Keyboard.JustDown(this.throwKey))
         {
+            //this.throwKey.isDown
+            //Phaser.Input.Keyboard.JustDown(this.throwKey)
             sho = 'THROW';
             // emit an event
             this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
+
         }
-        else if(this.canPress && Phaser.Input.Keyboard.JustDown(this.slashKey))
+        else if(Phaser.Input.Keyboard.JustDown(this.slashKey))
         {
             sho = 'SLASH';
             // emit an event
             this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
         }
-        else if(this.canPress && Phaser.Input.Keyboard.JustDown(this.guardKey))
+        else if(Phaser.Input.Keyboard.JustDown(this.guardKey))
         {
             sho = 'GUARD';
             // emit an event

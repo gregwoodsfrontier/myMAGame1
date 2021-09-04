@@ -109,10 +109,10 @@ export class GameScene extends Phaser.Scene {
     const mapy = getGameHeight(this)/2;
 
     map.createLayer("below", tileset, 0, 0)
-      .setSize(getGameWidth(this), getGameHeight(this))
+      //.setSize(getGameWidth(this), getGameHeight(this))
       .setScale(1.75);
     const same = map.createLayer("same", tileset, 0, 0)
-      .setSize(getGameWidth(this), getGameHeight(this))
+      //.setSize(getGameWidth(this), getGameHeight(this))
       .setScale(1.75);
     
     const objectLayer = map.getObjectLayer('objects');
@@ -172,9 +172,9 @@ export class GameScene extends Phaser.Scene {
     this.flagRT = this.calcTimeToFlag();
 
     // event-listeners
-    this.events.on(EventKeys.PLAYER_SHODOWN, this.setPlayerSho, this)
+    this.events.on(EventKeys.PLAYER_SHODOWN, this.setPlayerSho, this);
     // just set the enemysho for now
-    this.enemySho = 'SLASH'
+    this.events.on(EventKeys.ENEMY_SHODOWN, this.setEnemySho, this);
 
     // wake-up scene
     this.events.emit("scene-awake");
@@ -186,12 +186,12 @@ export class GameScene extends Phaser.Scene {
     this.timeToRaiseTheFlag(this.flagRT);
 
     // to determine the who is the boss
-    if(this.playerSho && this.enemySho)
+    /* if(this.playerSho && this.enemySho)
     {
       judgeCat(this.playerSho, this.enemySho);
       this.playerSho = undefined;
       this.enemySho = undefined;
-    }
+    } */
     
   }
 
@@ -218,6 +218,8 @@ export class GameScene extends Phaser.Scene {
     {
       console.log(`alert sign is flashed at ${this.time.now}`)
       this.alertsign.flash(300);
+      //Emit an event that flips the canPress state of player and enemy
+
       this.flagRT = this.calcTimeToFlag();
     }
   }
