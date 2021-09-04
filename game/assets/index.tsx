@@ -28,19 +28,59 @@ export const ALERT = 'alert';
 export const SHIELD160PX = 'shield160px';
 export const SHIELD320PX = 'shield320px';
 export const CLASH320PX = 'clash320px';
-export const SLASH640PX = 'shield640px';
+export const SLASH320PX = 'slash320px';
+export const KUTHROW = 'kunai-throw';
+export const KUSTART = 'kunai-start';
+export const KUIMPACT = 'kunai-impact';
 
 // Save all in game assets in the public folder
 export const assets: Array<Asset | SpritesheetAsset> = [
   {
-    key: SLASH640PX,
-    src: 'assets/sprites/640px-slash.png',
+    key: KUIMPACT,
+    src: 'assets/sprites/kunai/kunai-impact-160px.png',
     type: 'SPRITESHEET',
     data: {
-      frameWidth: 640,
-      frameHeight: 640
+      frameWidth: 320,
+      frameHeight: 320
     }
-  },{
+  },
+  {
+    key: KUTHROW,
+    src: 'assets/sprites/kunai/kunai-throw-320px.png',
+    type: 'SPRITESHEET',
+    data: {
+      frameWidth: 320,
+      frameHeight: 320
+    }
+  },
+  {
+    key: KUSTART,
+    src: 'assets/sprites/kunai/kunai-start-160px.png',
+    type: 'SPRITESHEET',
+    data: {
+      frameWidth: 160,
+      frameHeight: 160
+    }
+  },
+  {
+    key: SLASH320PX,
+    src: 'assets/sprites/320px-slash.png',
+    type: 'SPRITESHEET',
+    data: {
+      frameWidth: 320,
+      frameHeight: 320
+    }
+  },
+  {
+    key: CLASH320PX,
+    src: 'assets/sprites/320px-clash.png',
+    type: 'SPRITESHEET',
+    data: {
+      frameWidth: 320,
+      frameHeight: 320
+    }
+  },
+  {
     key: SHIELD320PX,
     src: 'assets/sprites/320px-shield.png',
     type: 'SPRITESHEET',

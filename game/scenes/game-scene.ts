@@ -84,7 +84,7 @@ export class GameScene extends Phaser.Scene {
   private selectedGotchi?: AavegotchiGameObject;
   private alertsign: AlertSign
   private lick: Lick
-  private flagRT = Phaser.Math.Between(5000, 10000);
+  private flagRT = 10000;
   private playerSho: ShoDown | undefined = undefined
   private enemySho: ShoDown | undefined = undefined
 

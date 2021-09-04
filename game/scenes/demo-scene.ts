@@ -1,5 +1,5 @@
 import {
-  SHIELD320PX,SHIELD160PX, SLASH640PX
+  SHIELD320PX,SHIELD160PX
 } from 'game/assets';
 import { getGameWidth, getGameHeight } from '../helpers';
 
@@ -48,12 +48,6 @@ export class DemoScene extends Phaser.Scene {
       SHIELD320PX
     );
 
-    const bigSlash = this.add.sprite(
-      getGameWidth(this)*3/4,
-      getGameHeight(this)/4,
-      SLASH640PX
-    );
-
     createAllAnimations(
       smallShield,
       'create',
@@ -70,17 +64,8 @@ export class DemoScene extends Phaser.Scene {
       13
     );
 
-    createAllAnimations(
-      bigSlash,
-      'create',
-      SLASH640PX,
-      0,
-      5
-    );
-
     smallShield.play('create')
     medShield.play('create')
-    bigSlash.play('create') 
   }
 
   public update(): void {
