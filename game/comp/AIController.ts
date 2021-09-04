@@ -27,14 +27,6 @@ export class AIController extends UserComponent
 
     start()
     {
-<<<<<<< HEAD
-        // an event that listen for the time to press the shoDown
-        /* this.gameObject.on('press-now', () => {
-            const choice = ['GUARD', 'SLASH', 'THROW'] as ShoDown[]
-            const i = Phaser.Math.Between(1,3);
-            console.log(`AI has pressed and chosen ${choice[i]}`)
-        }) */
-=======
         eventcenter.on(EventKeys.P_SHODOWN_ON, () => {
             this.canPress = true;
         });
@@ -55,7 +47,6 @@ export class AIController extends UserComponent
             },
             callbackScope: this.scene
         })
->>>>>>> shoLogicVA
     }
 
     giveAIShoDown(): ShoDown

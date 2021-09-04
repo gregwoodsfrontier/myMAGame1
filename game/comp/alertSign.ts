@@ -34,21 +34,12 @@ export class AlertSign
             getGameWidth(this.scene)/2,
             getGameHeight(this.scene)/4,
             ALERT
-<<<<<<< HEAD
-        )
-        .setScale(0.75)
-        .setDepth(10)
-        .setVisible(false);
-
-        this.sign.anims.create({
-=======
         );
         this.sign.setScale(0.5).setDepth(10);
         this.sign.setVisible(false);
         
         
         /* this.sign.anims.create({
->>>>>>> shoLogicVA
             key: 'flash',
             frames: this.sign.anims.generateFrameNumbers(ALERT, {
                 start: 0,
@@ -56,15 +47,8 @@ export class AlertSign
             }),
             repeat: -1,
             frameRate: 10
-<<<<<<< HEAD
-        })
-        //this.sign.play('flash');
-
-        this.spacebar = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-=======
         }) */
         //this.sign.play('flash');
->>>>>>> shoLogicVA
 
     }
 
@@ -76,13 +60,9 @@ export class AlertSign
     flash(flashTime: number)
     {
         this.sign.setVisible(true);
-<<<<<<< HEAD
-        this.sign.play('flash');
-=======
 
         this.sign.play(AnimeKeys.FLASH);
 
->>>>>>> shoLogicVA
         this.scene.time.delayedCall(flashTime, () => {
             this.sign.setVisible(false);
             this.sign.stop();

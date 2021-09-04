@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import { getGameHeight } from 'game/helpers';
-import { eventcenter } from 'game/scenes/eventcenter';
-=======
 import { getGameHeight, getRelative } from 'game/helpers';
->>>>>>> shoLogicVA
 import { EventKeys } from 'game/scenes/eventKeys';
 import { ShoDown } from 'game/types/type';
 import Phaser from 'phaser'
@@ -53,9 +48,6 @@ export class InputComponent extends UserComponent
         .setVisible(false)
         .setDepth(10);
 
-<<<<<<< HEAD
-        console.log(`player can press: ${this.canPress}`);
-=======
         eventcenter.on(EventKeys.P_SHODOWN_ON, () => {
             this.canPress = true;
             console.log(`player canPress: ${this.canPress}`);
@@ -65,43 +57,11 @@ export class InputComponent extends UserComponent
             this.canPress = false;
             console.log(`player canPress: ${this.canPress}`);
         }, this);
->>>>>>> shoLogicVA
 
     }
 
     update()
     {
-<<<<<<< HEAD
-        let sho: ShoDown
-        if(Phaser.Input.Keyboard.JustDown(this.throwKey))
-        {
-            sho = 'THROW';
-            this.shoDownText.setText(sho).setVisible(true);
-            // emit an event
-            // this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
-            eventcenter.emit(EventKeys.PLAYER_SHODOWN, sho);
-        }
-        else if(Phaser.Input.Keyboard.JustDown(this.slashKey))
-        {
-            sho = 'SLASH';
-            this.shoDownText.setText(sho).setVisible(true);
-            // emit an event
-            this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
-        }
-        else if(Phaser.Input.Keyboard.JustDown(this.guardKey))
-        {
-            sho = 'GUARD';
-            this.shoDownText.setText(sho).setVisible(true);
-            // emit an event
-            this.scene.events.emit(EventKeys.PLAYER_SHODOWN, sho);
-        }
-        else
-        {
-            this.shoDownText.setVisible(false);
-        }
-
-    }
-=======
         this.checkPlayerShoDown()       
     }
 
@@ -178,7 +138,6 @@ export class InputComponent extends UserComponent
                 eventcenter.emit(EventKeys.PLAYER_SHODOWN, 'GUARD');
             }
         }
->>>>>>> shoLogicVA
 
         if(Phaser.Input.Keyboard.JustDown(this.slashKey))
         {
