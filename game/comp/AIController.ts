@@ -2,6 +2,8 @@ import { eventcenter } from 'game/scenes/eventcenter';
 import { EventKeys } from 'game/scenes/eventKeys';
 import { ShoDown } from 'game/types/type';
 import Phaser from 'phaser'
+import { runInThisContext } from 'vm';
+import { enemyTrip } from './tweenManage';
 import UserComponent from './userComponent';
 
 export class AIController extends UserComponent
@@ -43,10 +45,52 @@ export class AIController extends UserComponent
         this.scene.time.addEvent({
             delay: 5500,
             callback: () => {
-                eventcenter.emit(EventKeys.ENEMY_SHODOWN, this.giveAIShoDown())
+                // check if it is within the canPress state
+                this.checkPressState();
             },
             callbackScope: this.scene
         })
+    }
+
+    checkPressState()
+    {
+        switch(this.canPress)
+        {
+            case true:
+            {
+                switch(this.giveAIShoDown())
+                {
+                    case 'GUARD': {
+                        // enemy guard tween
+                        eventcenter.emit(EventKeys.ENEMY_SHODOWN, this.giveAIShoDown());
+                        console.log(`enemy use GUARD`);
+                        break;
+                    }
+
+                    case 'SLASH': {
+                        // enemy guard tween
+                        eventcenter.emit(EventKeys.ENEMY_SHODOWN, this.giveAIShoDown());
+                        console.log(`enemy use SLASH`);
+                        break;
+                    }
+
+                    case 'THROW': {
+                        // enemy guard tween
+                        eventcenter.emit(EventKeys.ENEMY_SHODOWN, this.giveAIShoDown());
+                        console.log(`enemy use THROW`);
+                        break;
+                    }
+                }
+
+                break;
+            }
+
+            case false:
+            {
+                enemyTrip(this.scene, this.gameObject);
+                break;
+            }
+        }
     }
 
     giveAIShoDown(): ShoDown

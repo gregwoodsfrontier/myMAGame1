@@ -47,7 +47,7 @@ export class AnimationManage {
                 }
             ),
             frameRate: 10,
-            repeat: 0
+            repeat: -1
         });
 
         // kunai throw
@@ -103,7 +103,7 @@ export class AnimationManage {
                 }
             ),
             frameRate: 12,
-            repeat: 0
+            repeat: -1
         });
 
         //shield creation

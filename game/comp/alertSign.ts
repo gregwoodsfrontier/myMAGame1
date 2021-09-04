@@ -64,10 +64,12 @@ export class AlertSign
         this.sign.play(AnimeKeys.FLASH);
 
         this.scene.time.delayedCall(flashTime, () => {
+            console.log(`time = ${this.scene.time.now}, sign hidden`);
             this.sign.setVisible(false);
             this.sign.stop();
         });
-        this.scene.time.delayedCall(flashTime + 600, () => {
+        this.scene.time.delayedCall(flashTime + 500, () => {
+            console.log(`time = ${this.scene.time.now}, emit events`);
             eventcenter.emit(EventKeys.P_SHODOWN_OFF);
             eventcenter.emit(EventKeys.E_SHODOWN_OFF);
             eventcenter.emit('judge-off');

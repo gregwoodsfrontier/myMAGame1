@@ -1,5 +1,5 @@
 import {
-  BG, LICK, GRASSMAP, PIXELTILE, SHIELD320PX
+  BG, LICK, GRASSMAP, PIXELTILE, SHIELD320PX, SLASH320PX, KUSTART
 } from 'game/assets';
 import { AavegotchiGameObject } from 'types';
 import { getGameWidth, getGameHeight, getRelative, createDebugGraphics } from '../helpers';
@@ -12,6 +12,7 @@ import { ShoDown } from 'game/types/type';
 import { EventKeys } from './eventKeys';
 import { eventcenter } from './eventcenter';
 import { AnimationManage, AnimeKeys } from 'game/comp/animationManage';
+import { judgeCat } from 'game/comp/judgeCat';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -19,59 +20,6 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   key: 'Game',
 };
 
-
-const judgeCat = (playerIn: ShoDown|undefined, enemyIn: ShoDown|undefined) => {
-  // keeps updating to see if there are any input
-
-  console.log(`player show ${playerIn}`);
-  console.log(`enemy show ${enemyIn}`);
-
-  if(playerIn === enemyIn)
-  {
-    console.log('It is a draw');
-    return
-  }
-
-  switch(playerIn)
-  {
-    case 'THROW': {
-      if(enemyIn === 'GUARD')
-      {
-        console.log('player wins')
-      } 
-      else if(enemyIn === 'SLASH')
-      {
-        console.log('enemy wins')
-      }
-      break;
-    }
-
-    case 'GUARD': {
-      if(enemyIn === 'SLASH')
-      {
-        console.log('player wins')
-      }
-      else if(enemyIn === 'THROW')
-      {
-        console.log('enemy wins')
-      }
-      break;
-    }
-
-    case 'SLASH': {
-      if(enemyIn === 'GUARD')
-      {
-        console.log('player wins')
-      }
-      else if(enemyIn === 'SLASH')
-      {
-        console.log('enemy wins')
-      }
-      break;
-    }
-  }
-
-}
 
 /**
  * Scene where gameplay takes place
@@ -85,6 +33,9 @@ export class GameScene extends Phaser.Scene {
   private canJudge = false;
   private playerSho: ShoDown | undefined = undefined
   private enemySho: ShoDown | undefined = undefined
+  private cursors;
+  private slash;
+  private kunai;
 
   constructor() {
     super(sceneConfig);
@@ -97,6 +48,8 @@ export class GameScene extends Phaser.Scene {
   public create(): void {
 
     this.scene.run('UI');
+
+    this.cursors = this.input.keyboard.createCursorKeys();
 
     // load the animations inside
     new AnimationManage(this);
@@ -191,6 +144,7 @@ export class GameScene extends Phaser.Scene {
   public update(): void {
     // Every frame, we update the player
     this.player?.update();
+    this.moveSprite(this.kunai);
     //this.timeToRaiseTheFlag(this.flagRT);
 
     // to determine the who is the boss
@@ -198,7 +152,40 @@ export class GameScene extends Phaser.Scene {
     {
       this.callJudgeCat();
     }
-    
+  }
+
+  moveSprite(sprite: Phaser.GameObjects.Sprite)
+  {
+    if(this.cursors.left.isDown)
+    {
+      sprite.x -= getRelative(10, this);
+      const dx = (sprite.x - this.player!.x)*1080/getGameHeight(this);
+      const dy = (sprite.y - this.player!.y)*1080/getGameHeight(this);
+      console.log(`sprite: ${sprite.texture}, x: ${dx}, y: ${dy}`);
+    }
+    if(this.cursors.right.isDown)
+    {
+      sprite.x += getRelative(10, this);
+      const dx = (sprite.x - this.player!.x)*1080/getGameHeight(this);
+      const dy = (sprite.y - this.player!.y)*1080/getGameHeight(this);
+      console.log(`sprite: ${sprite.texture}, x: ${dx}, y: ${dy}`);
+    }
+
+    if(this.cursors.up.isDown)
+    {
+      sprite.y -= getRelative(10, this);
+      const dx = (sprite.x - this.player!.x)*1080/getGameHeight(this);
+      const dy = (sprite.y - this.player!.y)*1080/getGameHeight(this);
+      console.log(`sprite: ${sprite.texture}, x: ${dx}, y: ${dy}`);
+    }
+    if(this.cursors.down.isDown)
+    {
+      sprite.y += getRelative(10, this);
+      const dx = (sprite.x - this.player!.x)*1080/getGameHeight(this);
+      const dy = (sprite.y - this.player!.y)*1080/getGameHeight(this);
+      console.log(`sprite: ${sprite.texture}, x: ${dx}, y: ${dy}`);
+    }
+
   }
 
   addShoDownSprites()
@@ -213,11 +200,26 @@ export class GameScene extends Phaser.Scene {
       this.player?.x + getRelative(100, this),
       this.player?.y,
       SHIELD320PX
-    ).setScale(0.4);
+    ).setScale(0.4).setVisible(false); // hidden
     shield.flipX = true;
     shield.play(AnimeKeys.A_SHIELDMED);
 
     // add slash sprite
+    this.slash = this.add.sprite(
+      this.player?.x + getRelative(80, this),
+      this.player?.y + getRelative(-20, this),
+      SLASH320PX
+    ).setVisible(false);
+    this.slash.flipX = true;
+    this.slash.play(AnimeKeys.A_SLASH);
+
+    // add kunai start sprite
+    this.kunai = this.add.sprite(
+      this.player?.x + getRelative(80, this),
+      this.player?.y + getRelative(-100, this),
+      KUSTART
+    ); //hidden
+    this.kunai.play(AnimeKeys.A_KUSTART);
     
   }
 
@@ -239,8 +241,10 @@ export class GameScene extends Phaser.Scene {
 
   createTimerEvents()
   {
+    const alertDelay = Phaser.Math.Between(5,10)*1000;
+    console.log({alertDelay});
     this.time.addEvent({
-      delay: 5000,
+      delay: alertDelay,
       callback: () => {
         console.log(`ALERT!`);
 
@@ -254,7 +258,7 @@ export class GameScene extends Phaser.Scene {
         {
           return console.error('sign is not defined');
         }
-        this.alertsign.flash(1500);
+        this.alertsign.flash(500);
       },
       callbackScope: this,
     });
@@ -271,22 +275,4 @@ export class GameScene extends Phaser.Scene {
     this.enemySho = e;
   }
 
-  /* calcTimeToFlag()
-  {
-    const rand = Phaser.Math.Between(5000, 10000);
-    return this.time.now + rand;
-  }
-
-  timeToRaiseTheFlag(raiseTime: number)
-  {
-    // only checks if it's time to raise flag and raise it
-    if(this.time.now > raiseTime)
-    {
-      console.log(`alert sign is flashed at ${this.time.now}`)
-      this.alertsign.flash(300);
-      //Emit an event that flips the canPress state of player and enemy
-
-      this.flagRT = this.calcTimeToFlag();
-    }
-  } */
 }
