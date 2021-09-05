@@ -17,7 +17,7 @@ import { judgeCat } from 'game/comp/judgeCat';
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
   visible: false,
-  key: 'Game',
+  key: "Game",
 };
 
 
@@ -99,7 +99,7 @@ export class GameScene extends Phaser.Scene {
           this.lick = new Lick({
             scene: this,
             x: getGameWidth(this) * x/800,
-            y: getGameHeight(this) * y/600 + getRelative(200, this),
+            y: getGameHeight(this) * y/600 + getRelative(100, this),
             key: LICK
           });
           break;
@@ -209,7 +209,7 @@ export class GameScene extends Phaser.Scene {
     else
     {
       this.playerSho = p;
-      this.player?.setTint(0x00ff00);
+      //this.player?.setTint(0x00ff00);
     }
   }
 
@@ -222,7 +222,7 @@ export class GameScene extends Phaser.Scene {
     else
     {
       this.enemySho = e;
-      this.player?.setTint(0x00ff00);
+      //this.player?.setTint(0x00ff00);
     }
   }
 

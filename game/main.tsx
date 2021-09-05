@@ -40,6 +40,7 @@ const Main = () => {
     
     setConfig({
       type: Phaser.AUTO,
+      backgroundColor: 0x2b0f54,
       physics: {
         default: "arcade",
         arcade: {

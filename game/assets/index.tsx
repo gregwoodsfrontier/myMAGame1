@@ -32,9 +32,27 @@ export const SLASH320PX = 'slash320px';
 export const KUTHROW = 'kunai-throw';
 export const KUSTART = 'kunai-start';
 export const KUIMPACT = 'kunai-impact';
+export const TITLE = 'title';
+export const BLUE_BUTTON00 = 'blue-button-00';
+export const BLUE_BUTTON01 = 'blue-button-01';
 
 // Save all in game assets in the public folder
 export const assets: Array<Asset | SpritesheetAsset> = [
+  {
+    key: BLUE_BUTTON00,
+    src: 'assets/images/blue_button00.png',
+    type: 'IMAGE'
+  },
+  {
+    key: BLUE_BUTTON01,
+    src: 'assets/images/blue_button01.png',
+    type: 'IMAGE'
+  },
+  {
+    key: TITLE,
+    src: 'assets/images/gaame-jaam-title.png',
+    type: 'IMAGE'
+  },
   {
     key: KUIMPACT,
     src: 'assets/sprites/kunai/impact-160px.png',
