@@ -2,11 +2,12 @@ import {
   SHIELD320PX,SHIELD160PX, TITLE, BLUE_BUTTON00, BLUE_BUTTON01
 } from 'game/assets';
 import { getGameWidth, getGameHeight } from '../helpers';
+import { AavegotchiGameObject } from 'types';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
   visible: false,
-  key: 'Title',
+  key: "Title",
 };
 
 const yellow = 0xffda45;
@@ -17,9 +18,15 @@ const white = 0xffffff;
  */
 export class TitleScene extends Phaser.Scene {
 
+  selectedGotchi?: AavegotchiGameObject;
+
   constructor() {
     super(sceneConfig);
   }
+
+  init = (data: { selectedGotchi: AavegotchiGameObject }): void => {
+    this.selectedGotchi = data.selectedGotchi;
+  };
 
   public create(): void {
 
@@ -45,24 +52,20 @@ export class TitleScene extends Phaser.Scene {
       }
     ).setOrigin(0.5, 0.5);
 
-    this.input.manager.enabled = true;
-
-    this.input.once('pointerdown', function () {
-
-      this.scene.start("Game");
-
-    }, this);
-
     button.once('pointerdown', () => {
       button.setTexture(BLUE_BUTTON01);
-      //this.scene.start("Game");
     }, this)
 
-    /* button.on('pointerup', () => {
+    button.on('pointerup', () => {
       button.setFrame(BLUE_BUTTON00);
-      //this.scene.stop('Title');
+      this.cameras.main.fadeOut(1000, 0, 0, 0);
+      this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) =>
+      {
+          //this.scene.start(SceneKeys.GameOverScene);
+          this.scene.start("Game", { selectedGotchi: this.selectedGotchi });
+      });
       
-    }) */
+    });
 
     button.on('pointerover', () => {
       button.setTint(yellow);
