@@ -105,13 +105,13 @@ export const simpleMoveGuard = (scene: Phaser.Scene,
         SHIELD320PX
     ).setScale(0.4);
 
-    if(_flipX === true)
+    if(_flipX === false)
     {
-        shield.x += getRelative(100, scene);
+        shield.x -= getRelative(100, scene);
     }
     else
     {
-        shield.x -= getRelative(100, scene);
+        shield.x += getRelative(100, scene);
     }
     
     shield.flipX = _flipX;
