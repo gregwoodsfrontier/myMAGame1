@@ -50,26 +50,23 @@ const Home = () => {
         <h1>SamuGotchi ShowDown</h1>
         <p>Get started by editing <b>pages/index.tsx</b>.</p>
         <Grid>
-          <Card href="https://nextjs.org/docs/basic-features/pages" target="_blank">
-            <h3>Next.js Documentation</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </Card>
-          <Card href="https://docs.moralis.io/" target="_blank">
-            <h3>Moralis Documentation</h3>
-            <p>Learn about Moralis' suite of features for easy web3 integration.</p>
-          </Card>
-          <Card href="https://docs.aavegotchi.com/diamond-facets/aavegotchifacet.sol" target="_blank">
-            <h3>Aavegotchi Diamond</h3>
-            <p>Search the Aavegotchi dev wiki for the various contract methods.</p>
-          </Card>
-          <Card href="https://styled-components.com/" target="_blank">
-            <h3>Styled components</h3>
-            <p>Learn about the CSS-in-JS tool that bridges the gap between components and styling.</p>
+          <Card target="_blank">
+            <h3>Rules</h3>
+            <p>Be the fastest to show who's boss. First to score 10 points wins the shoDown</p>
           </Card>
           <Card target="_blank">
             <h3>Rules</h3>
-            <p>Be the fastest to show who's boss. Rock-paper-scissors style</p>
+            <p>A-key = GUARD. W-key = SLASH. D-key = THROW. Think of GUARD as rock, SLASH as paper, THROW as scissors.</p>
           </Card>
+          <Card target="_blank">
+            <h3>When the ❗ sign flashes</h3>
+            <p>Choose your SHODOWN! QUICK! Else you trip and enemy SHODOWNED you.</p>
+          </Card>
+          <Card target="_blank">
+            <h3>If you are ready to duel</h3>
+            <p>PRESS PLAY AND SHOW WHOSE TURF IS THIS.</p>
+          </Card>
+          
         </Grid>
       </Panel>
       <PlayButtonContainer>

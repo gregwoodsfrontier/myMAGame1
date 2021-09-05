@@ -8,7 +8,7 @@ import { Lick } from 'game/objects';
 import { InputComponent } from 'game/comp/input';
 import { AlertSign } from 'game/comp/alertSign';
 import { AIController } from 'game/comp/AIController';
-import { ShoDown } from 'game/types/type';
+import { ShoDown, TRIP } from 'game/types/type';
 import { EventKeys } from './eventKeys';
 import { eventcenter } from './eventcenter';
 import { AnimationManage, AnimeKeys } from 'game/comp/animationManage';
@@ -29,13 +29,12 @@ export class GameScene extends Phaser.Scene {
   private selectedGotchi?: AavegotchiGameObject;
   private alertsign: AlertSign
   private lick: Lick
-  private flagRT = 10000;
-  private canJudge = false;
-  private playerSho: ShoDown | undefined = undefined
-  private enemySho: ShoDown | undefined = undefined
-  private cursors;
-  private slash;
-  private kunai;
+  private flagRT = 5000;
+  //private canJudge = false;
+  private playerSho: ShoDown | undefined = TRIP;
+  private enemySho: ShoDown | undefined = TRIP;
+  private canTakeInput = false;
+  //private cursors;
 
   constructor() {
     super(sceneConfig);
@@ -49,14 +48,18 @@ export class GameScene extends Phaser.Scene {
 
     this.scene.run('UI');
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+    //this.cursors = this.input.keyboard.createCursorKeys();
 
     // load the animations inside
     new AnimationManage(this);
 
+    // setting up the alert indicator
+    this.alertsign = new AlertSign(this);
+
     // Add layout
     this.add.image(getGameWidth(this) / 2, getGameHeight(this) / 2, BG).setDisplaySize(getGameWidth(this), getGameHeight(this));
 
+    // make the environment map
     const map = this.make.tilemap({ key: GRASSMAP });
     const tileset = map.addTilesetImage('pixeltile-packed-extruded', PIXELTILE);
 
@@ -96,7 +99,7 @@ export class GameScene extends Phaser.Scene {
           this.lick = new Lick({
             scene: this,
             x: getGameWidth(this) * x/800,
-            y: getGameHeight(this) * y/600 - getRelative(50, this),
+            y: getGameHeight(this) * y/600 + getRelative(200, this),
             key: LICK
           });
           break;
@@ -106,6 +109,11 @@ export class GameScene extends Phaser.Scene {
     
     same.setCollisionByProperty({ collides: true });
 
+    
+
+    // make an AI controller with no reference
+    new AIController(this.lick.sprite);
+
     //createDebugGraphics(this, same);
 
     // add colliders
@@ -114,28 +122,28 @@ export class GameScene extends Phaser.Scene {
       this.physics.add.collider(this.player, same);
       new InputComponent(this.player);
     }
+
     this.physics.add.collider(this.lick.sprite, same);
-
-    // setting up the alert indicator
-    this.alertsign = new AlertSign(this);
-
-    // make an AI controller with no reference
-    new AIController(this.lick.sprite);
-
-    //this.flagRT = this.calcTimeToFlag();
 
     // event-listeners
     eventcenter.on(EventKeys.PLAYER_SHODOWN, this.setPlayerSho, this);
     eventcenter.on(EventKeys.ENEMY_SHODOWN, this.setEnemySho, this);
-    eventcenter.on('judge-off', () => {
-      this.enableJudgeCat(false);
+    // listeners for calling judge cat
+    eventcenter.on(EventKeys.CALL_JUDGE_CAT, () => {
+      judgeCat(this.playerSho, this.enemySho);
+    }, this);
+    // listen to reject input
+    eventcenter.on(EventKeys.REJECTINPUT, () => {
+      this.canTakeInput = false;
+      this.returnDefaultSho();
+    })
+    // listens to update flag time
+    eventcenter.on(EventKeys.UPDATEFLAGTIME, () => {
+      this.flagRT = this.updateFlagTime();
     }, this);
 
     // added timer events
     this.createTimerEvents();
-
-    // add shodown components sprite
-    this.addShoDownSprites();
 
     // wake-up scene
     this.events.emit("scene-awake");
@@ -143,122 +151,49 @@ export class GameScene extends Phaser.Scene {
 
   public update(): void {
     // Every frame, we update the player
-    this.player?.update();
-    this.moveSprite(this.kunai);
-    //this.timeToRaiseTheFlag(this.flagRT);
-
-    // to determine the who is the boss
-    if(this.canJudge === true)
-    {
-      this.callJudgeCat();
-    }
-  }
-
-  moveSprite(sprite: Phaser.GameObjects.Sprite)
-  {
-    if(this.cursors.left.isDown)
-    {
-      sprite.x -= getRelative(10, this);
-      const dx = (sprite.x - this.player!.x)*1080/getGameHeight(this);
-      const dy = (sprite.y - this.player!.y)*1080/getGameHeight(this);
-      console.log(`sprite: ${sprite.texture}, x: ${dx}, y: ${dy}`);
-    }
-    if(this.cursors.right.isDown)
-    {
-      sprite.x += getRelative(10, this);
-      const dx = (sprite.x - this.player!.x)*1080/getGameHeight(this);
-      const dy = (sprite.y - this.player!.y)*1080/getGameHeight(this);
-      console.log(`sprite: ${sprite.texture}, x: ${dx}, y: ${dy}`);
-    }
-
-    if(this.cursors.up.isDown)
-    {
-      sprite.y -= getRelative(10, this);
-      const dx = (sprite.x - this.player!.x)*1080/getGameHeight(this);
-      const dy = (sprite.y - this.player!.y)*1080/getGameHeight(this);
-      console.log(`sprite: ${sprite.texture}, x: ${dx}, y: ${dy}`);
-    }
-    if(this.cursors.down.isDown)
-    {
-      sprite.y += getRelative(10, this);
-      const dx = (sprite.x - this.player!.x)*1080/getGameHeight(this);
-      const dy = (sprite.y - this.player!.y)*1080/getGameHeight(this);
-      console.log(`sprite: ${sprite.texture}, x: ${dx}, y: ${dy}`);
-    }
+    //this.player?.update();
 
   }
 
-  addShoDownSprites()
+  returnDefaultSho()
   {
-    if(!this.player)
-    {
-      return
-    }
-    
-    // add shield sprite
-    const shield = this.add.sprite(
-      this.player?.x + getRelative(100, this),
-      this.player?.y,
-      SHIELD320PX
-    ).setScale(0.4).setVisible(false); // hidden
-    shield.flipX = true;
-    shield.play(AnimeKeys.A_SHIELDMED);
-
-    // add slash sprite
-    this.slash = this.add.sprite(
-      this.player?.x + getRelative(80, this),
-      this.player?.y + getRelative(-20, this),
-      SLASH320PX
-    ).setVisible(false);
-    this.slash.flipX = true;
-    this.slash.play(AnimeKeys.A_SLASH);
-
-    // add kunai start sprite
-    this.kunai = this.add.sprite(
-      this.player?.x + getRelative(80, this),
-      this.player?.y + getRelative(-100, this),
-      KUSTART
-    ); //hidden
-    this.kunai.play(AnimeKeys.A_KUSTART);
-    
+    this.playerSho = TRIP;
+    this.enemySho = TRIP;
   }
 
-  enableJudgeCat(state: boolean)
+  updateFlagTime()
   {
-    this.canJudge = state;
-    console.log(`can Judge: ${this.canJudge}`);
-  }
-
-  callJudgeCat()
-  {
-    if(this.playerSho && this.enemySho)
-    {
-      judgeCat(this.playerSho, this.enemySho);
-      this.playerSho = undefined;
-      this.enemySho = undefined;
-    }
+    return Phaser.Math.Between(5,10)*1000;
   }
 
   createTimerEvents()
   {
-    const alertDelay = Phaser.Math.Between(5,10)*1000;
-    console.log({alertDelay});
     this.time.addEvent({
-      delay: alertDelay,
+      delay: this.flagRT,
+      loop: true,
+      repeat: -1,
       callback: () => {
+        // give log alert
         console.log(`ALERT!`);
+        // log current time
+        console.log(`flag RT = ${this.flagRT}`);
+        console.log(`current time: ${this.time.now}`); 
 
-        this.enableJudgeCat(true);
+        // Emits both events to ensure that judge cat accepts input.
+        this.canTakeInput = true;
 
-        // Emits both events to ensure that the 
-        eventcenter.emit(EventKeys.P_SHODOWN_ON);
-        eventcenter.emit(EventKeys.E_SHODOWN_ON);
+        // enable judgeCat to judge
+        //this.enableJudgeCat(true);
 
         if(!this.alertsign)
         {
           return console.error('sign is not defined');
         }
+        // flash the sign please
+        // flash also flips the takeInput bit to disbale after some time
         this.alertsign.flash(500);
+
+        eventcenter.emit(EventKeys.UPDATEFLAGTIME);
       },
       callbackScope: this,
     });
@@ -267,12 +202,28 @@ export class GameScene extends Phaser.Scene {
 
   setPlayerSho(p: ShoDown)
   {
-    this.playerSho = p;
+    if(this.canTakeInput === false)
+    {
+      return
+    }
+    else
+    {
+      this.playerSho = p;
+      this.player?.setTint(0x00ff00);
+    }
   }
 
   setEnemySho(e: ShoDown)
   {
-    this.enemySho = e;
+    if(this.canTakeInput === false)
+    {
+      return
+    }
+    else
+    {
+      this.enemySho = e;
+      this.player?.setTint(0x00ff00);
+    }
   }
 
 }

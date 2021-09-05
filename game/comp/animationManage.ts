@@ -102,7 +102,7 @@ export class AnimationManage {
                     end: 5
                 }
             ),
-            frameRate: 12,
+            frameRate: 6,
             repeat: -1
         });
 

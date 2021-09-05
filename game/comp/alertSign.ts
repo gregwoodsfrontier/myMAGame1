@@ -4,7 +4,6 @@ import { eventcenter } from 'game/scenes/eventcenter';
 import { EventKeys } from 'game/scenes/eventKeys';
 import Phaser from 'phaser'
 import { AnimeKeys, AnimationManage } from './animationManage';
-import UserComponent from './userComponent';
 
 export class AlertSign
 {
@@ -64,15 +63,19 @@ export class AlertSign
         this.sign.play(AnimeKeys.FLASH);
 
         this.scene.time.delayedCall(flashTime, () => {
-            console.log(`time = ${this.scene.time.now}, sign hidden`);
+            //console.log(`time = ${this.scene.time.now}, sign hidden`);
             this.sign.setVisible(false);
             this.sign.stop();
         });
         this.scene.time.delayedCall(flashTime + 500, () => {
-            console.log(`time = ${this.scene.time.now}, emit events`);
-            eventcenter.emit(EventKeys.P_SHODOWN_OFF);
-            eventcenter.emit(EventKeys.E_SHODOWN_OFF);
-            eventcenter.emit('judge-off');
+            //console.log(`time = ${this.scene.time.now}, emit events`);
+            // emit judge cat
+            eventcenter.emit(EventKeys.CALL_JUDGE_CAT);
+            // turn off shoDown
+            eventcenter.emit(EventKeys.REJECTINPUT);
+            //eventcenter.emit(EventKeys.P_SHODOWN_OFF);
+            //eventcenter.emit(EventKeys.E_SHODOWN_OFF);
+            //eventcenter.emit(EventKeys.JUDGE_OFF);
         })
     }
 

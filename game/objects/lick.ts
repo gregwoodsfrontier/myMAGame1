@@ -18,7 +18,7 @@ export class Lick {
     {   
         //this.animeManage = new AnimationManage(scene);
         this.sprite = scene.add.sprite(x, y, key);
-        this.sprite.setOrigin(0, 0);
+        this.sprite.setOrigin(0.5, 0.5);
         this.createAnimations();
         
         // Add scaling to lickquidators

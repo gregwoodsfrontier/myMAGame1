@@ -4,6 +4,7 @@ import {
   } from 'game/assets';
 import { getGameWidth, getGameHeight, getRelative } from '../helpers';
 import { eventcenter } from './eventcenter';
+import { EventKeys } from './eventKeys';
 
 const TURQUOISE = '#33FFDD'
 const CORALRED = '#FF4D4D'
@@ -35,6 +36,10 @@ export default class UIScene extends Phaser.Scene
     
     create()
     {
+        //listening for events
+        eventcenter.on(EventKeys.P_SCOREUP, this.increasePlayerScore, this);
+        eventcenter.on(EventKeys.E_SCOREUP, this.increaseEnemyScore, this);
+
         // input
         this.cursorKeys = this.input.keyboard.createCursorKeys();
 
@@ -80,19 +85,7 @@ export default class UIScene extends Phaser.Scene
 
     update()
     {
-        /* if(this.cursorKeys)
-        {
-            if(Phaser.Input.Keyboard.JustDown(this.cursorKeys?.right))
-            {   
-                this.pScoreText.x += 5
-            }
-            if(Phaser.Input.Keyboard.JustDown(this.cursorKeys?.left))
-            {   
-                this.eScoreText.x -= 5
-            }
-        }
-        this.pScoreText.setText(`${this.pScore}`);
-        this.eScoreText.setText(`${this.eScore}`); */
+        
 
     }
 
@@ -108,9 +101,14 @@ export default class UIScene extends Phaser.Scene
         });
     };
 
-    private upScore(score: number)
+    private increasePlayerScore(score: number)
     {
-        return score + 1
+        this.pScore += score;
     }
     
+    private increaseEnemyScore(score: number)
+    {
+        this.eScore += score;
+    }
+
 }
