@@ -3,8 +3,6 @@ import { eventcenter } from 'game/scenes/eventcenter';
 import { EventKeys } from 'game/scenes/eventKeys';
 import { ShoDown, TRIP, GUARD, SLASH, THROW } from 'game/types/type';
 import Phaser from 'phaser'
-import { runInThisContext } from 'vm';
-import { enemyTrip } from './tweenManage';
 import UserComponent from './userComponent';
 
 const CORALRED = '#FF4D4D';
@@ -12,7 +10,7 @@ const CORALRED = '#FF4D4D';
 export class AIController extends UserComponent
 {
     private gameObject: Phaser.GameObjects.Sprite
-    private canPress = false;
+
     private shoDownText: Phaser.GameObjects.Text;
     private AIShoDown: ShoDown|undefined;
     private AIResponse: number
@@ -37,6 +35,7 @@ export class AIController extends UserComponent
     {
         // gives reponse at randam time bewtween 4 to 11 sec
         this.AIResponse = this.updateResponseTime();
+        //this.AIResponse = 6500;
         console.log(`AIresponse time = ${this.AIResponse}`);
 
         this.shoDownText = this.scene.add.text(
@@ -51,14 +50,6 @@ export class AIController extends UserComponent
         .setVisible(false)
         .setDepth(10);
 
-        eventcenter.on(EventKeys.P_SHODOWN_ON, () => {
-            this.canPress = true;
-        });
-
-        eventcenter.on(EventKeys.E_SHODOWN_OFF, () => {
-            this.canPress = false;
-        });
-
         this.createTimerEvent();
     }
 
@@ -69,7 +60,7 @@ export class AIController extends UserComponent
 
     updateResponseTime()
     {
-        return Phaser.Math.Between(4,11)*1000;
+        return Phaser.Math.Between(4,10)*1000;
     }
 
     createTimerEvent()
@@ -84,6 +75,7 @@ export class AIController extends UserComponent
                 // check if it is within the canPress state
                 eventcenter.emit(EventKeys.ENEMY_SHODOWN, this.AIShoDown);
                 this.AIResponse = this.updateResponseTime();
+                //this.AIResponse = 6000;
                 console.log(`AIresponse time = ${this.AIResponse}`);
             },
             callbackScope: this.scene
@@ -92,8 +84,9 @@ export class AIController extends UserComponent
 
     giveAIShoDown(): ShoDown
     {
-        const choice = [GUARD, SLASH, THROW] as ShoDown[]
+        const choice = [GUARD, SLASH, THROW, TRIP] as ShoDown[]
         const i = Phaser.Math.Between(0,2);
+        //const i = 3;
         return choice[i]
     }
 }

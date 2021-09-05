@@ -35,9 +35,33 @@ export const KUIMPACT = 'kunai-impact';
 export const TITLE = 'title';
 export const BLUE_BUTTON00 = 'blue-button-00';
 export const BLUE_BUTTON01 = 'blue-button-01';
+export const KATANA_ICON = 'katana-icon';
+export const KUNAI_ICON = 'kunai-icon';
+export const SHIELD_ICON = 'shield-icon';
+export const UIBOARD = 'uiboard';
 
 // Save all in game assets in the public folder
 export const assets: Array<Asset | SpritesheetAsset> = [
+  {
+    key: UIBOARD,
+    src: 'assets/images/ui-board.png',
+    type: 'IMAGE'
+  },
+  {
+    key: KATANA_ICON,
+    src: 'assets/icons/katana-slash.png',
+    type: 'IMAGE'
+  },
+  {
+    key: KUNAI_ICON,
+    src: 'assets/icons/kunai-throw-light.png',
+    type: 'IMAGE'
+  },
+  {
+    key: SHIELD_ICON,
+    src: 'assets/icons/shield.png',
+    type: 'IMAGE'
+  },
   {
     key: BLUE_BUTTON00,
     src: 'assets/images/blue_button00.png',

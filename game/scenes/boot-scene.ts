@@ -25,6 +25,7 @@ export class BootScene extends Phaser.Scene {
   private progressBar?: Phaser.GameObjects.Rectangle;
   private loadingText?: Phaser.GameObjects.Text;
   private startScene = "Title"
+  //private startScene = "Title"
 
   constructor() {
     super(sceneConfig);

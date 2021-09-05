@@ -1,12 +1,14 @@
 import Phaser from 'phaser'
 import { AnimeKeys } from './animationManage';
-import { SHIELD320PX, KUSTART } from 'game/assets';
+import { SHIELD320PX, KUSTART, KUIMPACT, KUTHROW, SLASH320PX } from 'game/assets';
 import { getRelative } from 'game/helpers';
+import { start } from 'repl';
+import scenes from 'game/scenes';
 
 export const simpleTrip = (scene: Phaser.Scene,
     sprite: Phaser.GameObjects.Sprite,
-    moveX: string,
-    _angle: number
+    moveX: string = '+=150',
+    _angle: number = 90
 ) =>
 {
     scene.tweens.add({
@@ -24,6 +26,165 @@ export const simpleTrip = (scene: Phaser.Scene,
     })
 }
 
+function delayDestroy(_scene: Phaser.Scene, _sprite: Phaser.GameObjects.Sprite)
+{
+    _scene.time.delayedCall(700, () => {
+        _sprite.destroy();
+    })
+}
+
+export const simpleThrow = (scene: Phaser.Scene,
+    sprite: Phaser.GameObjects.Sprite,
+    target: Phaser.GameObjects.Sprite,
+    _flipX = false,
+) => 
+{
+    // placement
+    const startKunai = scene.add.sprite(
+        sprite.x,
+        sprite.y - getRelative(80, scene),
+        KUSTART
+    );
+    
+    const throwKunai = scene.add.sprite(
+        sprite.x,
+        sprite.y,
+        KUTHROW
+    ).setVisible(false);
+
+    const impact = scene.add.sprite(
+        target.x,
+        target.y - getRelative(80, scene),
+        KUIMPACT
+    ).setVisible(false);
+
+    impact.angle = -90;
+    impact.play(AnimeKeys.A_KUIMPACT);
+    impact.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+        delayDestroy(scene, impact);
+    });
+
+    startKunai.flipX = _flipX;
+    throwKunai.flipX = _flipX;
+
+    if(_flipX === false)
+    {
+        // player
+        startKunai.x += getRelative(80, scene);
+        throwKunai.x += getRelative(160, scene);
+    }
+    else
+    {
+        // enemy
+        startKunai.x -= getRelative(80, scene);
+        throwKunai.x -= getRelative(160, scene);
+    }
+
+    // animation
+    startKunai.play(AnimeKeys.A_KUSTART);
+    startKunai.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+        delayDestroy(scene, startKunai);
+        throwKunai.setVisible(true);
+        throwKunai.play(AnimeKeys.A_KUTHROW);
+    });
+    throwKunai.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+        delayDestroy(scene, throwKunai);
+    })
+
+}
+
+export const simpleMoveGuard = (scene: Phaser.Scene,
+    sprite: Phaser.GameObjects.Sprite,
+    _flipX = false,
+    _moveX = '+=0'
+) =>
+{
+    const shield = scene.add.sprite(
+        sprite.x,
+        sprite.y,
+        SHIELD320PX
+    ).setScale(0.4);
+
+    if(_flipX === false)
+    {
+        shield.x -= getRelative(100, scene);
+    }
+    else
+    {
+        shield.x += getRelative(100, scene);
+    }
+    
+    shield.flipX = _flipX;
+
+    // check if needed tween or not
+    if(_moveX !== '+=0')
+    {
+        scene.tweens.add({
+            targets: [sprite, shield],
+            x: _moveX,
+            ease: 'Quint.easeOut',
+            duration: 500,
+            hold: 500,
+            yoyo: true,
+            onStart:() => {
+                shield.play(AnimeKeys.A_SHIELDMED);
+            },
+            onYoyo:() => {
+                delayDestroy(scene, shield)
+            }
+        })
+    }
+    else
+    {
+        shield.play(AnimeKeys.A_SHIELDMED);
+        shield.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+            delayDestroy(scene, shield);
+        });
+    }
+}
+
+export const simpleSlash = (scene: Phaser.Scene,
+    sprite: Phaser.GameObjects.Sprite,
+    _flipX = false,
+    _moveX = '+=0'
+) => 
+{
+    const slash = scene.add.sprite(
+        sprite.x,
+        sprite.y,
+        SLASH320PX
+    ).setScale(0.4);
+    slash.flipX = _flipX;
+
+    // check if needed tween or not
+    if(_moveX !== '+=0')
+    {
+        scene.tweens.add({
+            targets: [sprite, slash],
+            x: _moveX,
+            ease: 'Quint.easeOut',
+            duration: 500,
+            hold: 500,
+            yoyo: true,
+            onStart:() => {
+                slash.play(AnimeKeys.A_SLASH);
+            },
+            onYoyo:() => {
+                delayDestroy(scene, slash);
+            }
+        })
+    }
+    else
+    {
+        slash.play(AnimeKeys.A_SHIELDMED);
+        slash.on(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+            delayDestroy(scene, slash);
+        });
+    }
+}
+
+
+/*
 export const playerTrip = (scene: Phaser.Scene, sprite: Phaser.GameObjects.Sprite,
     keys: Phaser.Input.Keyboard.Key[]
 ) =>
@@ -108,7 +269,7 @@ export const playerThrow = (scene: Phaser.Scene,
             keys.forEach(item => item.enabled = true);
             shield.destroy();
         }
-    }) */
+    })
 }
 
 export const playerSlash = (scene: Phaser.Scene,
@@ -156,3 +317,4 @@ export const enemyTrip = (scene: Phaser.Scene, sprite: Phaser.GameObjects.Sprite
         hold: 500,
     })
 }
+*/
