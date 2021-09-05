@@ -1,10 +1,11 @@
 import Phaser from 'phaser'
 import {
-    LEFT_CHEVRON, CLICK
+    LEFT_CHEVRON, CLICK, UIBOARD
   } from 'game/assets';
 import { getGameWidth, getGameHeight, getRelative } from '../helpers';
 import { eventcenter } from './eventcenter';
 import { EventKeys } from './eventKeys';
+import { addIcon } from 'game/comp/iconContainer';
 
 const TURQUOISE = '#33FFDD'
 const CORALRED = '#FF4D4D'
@@ -31,11 +32,18 @@ export default class UIScene extends Phaser.Scene
 
     preload()
     {
-        this.load.image('uiboard', 'assets/images/ui-board.png');
+        //this.load.image('uiboard', 'assets/images/ui-board.png');
     }
     
     create()
     {
+        addIcon
+        (   
+            this, 
+            getGameWidth(this)*0 + getRelative(85, this), 
+            getGameHeight(this) - getRelative(240, this)
+        );
+
         //listening for events
         eventcenter.on(EventKeys.P_SCOREUP, this.increasePlayerScore, this);
         eventcenter.on(EventKeys.E_SCOREUP, this.increaseEnemyScore, this);
@@ -46,7 +54,7 @@ export default class UIScene extends Phaser.Scene
         this.back = this.sound.add(CLICK, { loop: false });
 
         this.container = this.add.container(getGameWidth(this)/2, getGameHeight(this)/2*100/600)
-        const uiboard = this.add.image(0, 0, 'uiboard');
+        const uiboard = this.add.image(0, 0, UIBOARD);
         this.pScoreText = this.add.text(
             -80,
             0,
@@ -85,8 +93,8 @@ export default class UIScene extends Phaser.Scene
 
     update()
     {
-        
-
+        this.pScoreText.setText(`${this.pScore}`);
+        this.eScoreText.setText(`${this.eScore}`);
     }
 
     private createBackButton = () => {

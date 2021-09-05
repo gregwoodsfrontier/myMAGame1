@@ -46,8 +46,10 @@ export class AnimationManage {
                     end: 4
                 }
             ),
-            frameRate: 10,
-            repeat: -1
+            //frameRate: 10,
+            duration: 400,
+            showOnStart: true,
+            hideOnComplete: true
         });
 
         // kunai throw
@@ -60,8 +62,9 @@ export class AnimationManage {
                     end: 3
                 }
             ),
-            frameRate: 12,
-            repeat: 0
+            duration: 400,
+            showOnStart: true,
+            hideOnComplete: true
         });
 
         // kunai impact
@@ -74,8 +77,9 @@ export class AnimationManage {
                     end: 5
                 }
             ),
-            frameRate: 12,
-            repeat: 0
+            duration: 400,
+            showOnStart: true,
+            hideOnComplete: true
         });
 
         //katana clash
@@ -88,8 +92,9 @@ export class AnimationManage {
                     end: 4
                 }
             ),
-            frameRate: 10,
-            repeat: 0
+            duration: 400,
+            showOnStart: true,
+            hideOnComplete: true
         });
 
         //katana slash
@@ -102,8 +107,10 @@ export class AnimationManage {
                     end: 5
                 }
             ),
-            frameRate: 6,
-            repeat: -1
+            frameRate: 10,
+            duration: 400,
+            showOnStart: true,
+            hideOnComplete: true
         });
 
         //shield creation
@@ -155,7 +162,7 @@ export class AnimationManage {
         });
 
         this.scene.anims.create({
-            key: 'flash',
+            key: AnimeKeys.FLASH,
             frames: this.scene.anims.generateFrameNumbers(ALERT, {
                 start: 0,
                 end: 1
@@ -163,8 +170,5 @@ export class AnimationManage {
             repeat: -1,
             frameRate: 10
         })
-
     }
-
-
 }

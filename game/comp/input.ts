@@ -4,7 +4,7 @@ import { GUARD, ShoDown, THROW, SLASH, TRIP } from 'game/types/type';
 import Phaser from 'phaser'
 import UserComponent from './userComponent';
 import { eventcenter } from 'game/scenes/eventcenter';
-import { playerGuard, playerThrow, playerTrip } from './tweenManage';
+
 
 export class InputComponent extends UserComponent
 {
@@ -61,19 +61,16 @@ export class InputComponent extends UserComponent
         if(Phaser.Input.Keyboard.JustDown(this.throwKey))
         {
             eventcenter.emit(EventKeys.PLAYER_SHODOWN, THROW);
-            console.log('player presses throw');
         }
 
         if(Phaser.Input.Keyboard.JustDown(this.guardKey))
         {
             eventcenter.emit(EventKeys.PLAYER_SHODOWN, GUARD);
-            console.log('player presses guard');
         }
 
         if(Phaser.Input.Keyboard.JustDown(this.slashKey))
         {
             eventcenter.emit(EventKeys.PLAYER_SHODOWN, SLASH);
-            console.log('player presses slash');
         }
         
     }

@@ -1,5 +1,5 @@
 import {
-  BG, LICK, GRASSMAP, PIXELTILE, SHIELD320PX, SLASH320PX, KUSTART
+  BG, LICK, GRASSMAP, PIXELTILE,
 } from 'game/assets';
 import { AavegotchiGameObject } from 'types';
 import { getGameWidth, getGameHeight, getRelative, createDebugGraphics } from '../helpers';
@@ -12,7 +12,7 @@ import { ShoDown, TRIP } from 'game/types/type';
 import { EventKeys } from './eventKeys';
 import { eventcenter } from './eventcenter';
 import { AnimationManage, AnimeKeys } from 'game/comp/animationManage';
-import { judgeCat } from 'game/comp/judgeCat';
+import { judgeCat, renderResults } from 'game/comp/judgeCat';
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   active: false,
@@ -130,7 +130,8 @@ export class GameScene extends Phaser.Scene {
     eventcenter.on(EventKeys.ENEMY_SHODOWN, this.setEnemySho, this);
     // listeners for calling judge cat
     eventcenter.on(EventKeys.CALL_JUDGE_CAT, () => {
-      judgeCat(this.playerSho, this.enemySho);
+      judgeCat(this, this.playerSho, this.enemySho, this.player, this.lick.sprite);
+      renderResults(this, this.playerSho, this.enemySho, this.player, this.lick.sprite);
     }, this);
     // listen to reject input
     eventcenter.on(EventKeys.REJECTINPUT, () => {
@@ -204,12 +205,12 @@ export class GameScene extends Phaser.Scene {
   {
     if(this.canTakeInput === false)
     {
-      return
+      return  console.log('player input not accepted')
     }
     else
     {
       this.playerSho = p;
-      //this.player?.setTint(0x00ff00);
+      console.log('player chosen')
     }
   }
 
@@ -217,12 +218,12 @@ export class GameScene extends Phaser.Scene {
   {
     if(this.canTakeInput === false)
     {
-      return
+      return console.log('enemy input not accepted')
     }
     else
     {
       this.enemySho = e;
-      //this.player?.setTint(0x00ff00);
+      console.log('enemy chosen')
     }
   }
 

@@ -7,6 +7,7 @@ import Scenes from "game/scenes";
 import { Aavegotchi, Tuple } from "types";
 import { useDiamondCall } from "actions/web3";
 import { useMoralis } from "react-moralis";
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
 const Main = () => {
   const router = useRouter()
@@ -41,6 +42,13 @@ const Main = () => {
     setConfig({
       type: Phaser.AUTO,
       backgroundColor: 0x2b0f54,
+      plugins:{
+        scene: [{
+          key: 'rexUI',
+          plugin: UIPlugin,
+          mapping: 'rexUI'
+        }]
+      },
       physics: {
         default: "arcade",
         arcade: {
