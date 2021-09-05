@@ -41,7 +41,7 @@ export default class UIScene extends Phaser.Scene
         (   
             this, 
             getGameWidth(this)*0 + getRelative(85, this), 
-            getGameHeight(this) - getRelative(240, this)
+            getGameHeight(this) - getRelative(400, this)
         );
 
         //listening for events

@@ -10,12 +10,12 @@ export const addIcon = (scene: Phaser.Scene, cx = 0, cy = 0) => {
     const textConfig = {
         backgroundColor: '#2b0f54',
         color: '#ffda45',
-        fontSize: '21px'
+        fontSize: '42px'
     };
 
-    const gIconText = scene.add.text(80, 80, 'A', textConfig);
-    const sIconText = scene.add.text(80, 80, 'W', textConfig);
-    const tIconText = scene.add.text(80, 80, 'D', textConfig);
+    const gIconText = scene.add.text(80, -120, 'A', textConfig).setOrigin(0.5,0.5);
+    const sIconText = scene.add.text(80, 80, 'W', textConfig).setOrigin(0.5,0.5);
+    const tIconText = scene.add.text(80, 280, 'D', textConfig).setOrigin(0.5,0.5);
 
     container.add([gIcon, sIcon, tIcon, gIconText, sIconText, tIconText]);
 
