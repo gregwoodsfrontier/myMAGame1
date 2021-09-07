@@ -20,7 +20,6 @@ export interface SpritesheetAsset extends Asset {
 export const BG = 'bg';
 export const FULLSCREEN = 'fullscreen';
 export const LEFT_CHEVRON = 'left_chevron';
-export const CLICK = 'click';
 export const LICK = 'lick';
 export const GRASSMAP = 'grassmap';
 export const PIXELTILE = 'pixeltile';
@@ -40,8 +39,47 @@ export const KUNAI_ICON = 'kunai-icon';
 export const SHIELD_ICON = 'shield-icon';
 export const UIBOARD = 'uiboard';
 
+// audio
+export const CLICK = 'click';
+export const TITLE_MUSIC = 'title-music';
+export const GUARD_AUDIO = 'guard-audio';
+export const THROW_METAL = 'throw-metal';
+export const SLASH_AUDIO = 'slash-audio';
+export const TRIP_ERR = 'trip-error';
+export const COWBOY = 'cowboy';
+
 // Save all in game assets in the public folder
 export const assets: Array<Asset | SpritesheetAsset> = [
+  {
+    key: TRIP_ERR,
+    src: 'assets/sounds/error.wav',
+    type: 'AUDIO'
+  },
+  {
+    key: SLASH_AUDIO,
+    src: 'assets/sounds/slash.wav',
+    type: 'AUDIO'
+  },
+  {
+    key: THROW_METAL,
+    src: 'assets/sounds/throw-metal.wav',
+    type: 'AUDIO'
+  },
+  {
+    key: GUARD_AUDIO,
+    src: 'assets/sounds/guard.wav',
+    type: 'AUDIO'
+  },
+  {
+    key: TITLE_MUSIC,
+    src: 'assets/sounds/uni_fish.wav',
+    type: 'AUDIO'
+  },
+  {
+    key: COWBOY,
+    src: 'assets/sounds/cowboy_blues.wav',
+    type: 'AUDIO'
+  },
   {
     key: UIBOARD,
     src: 'assets/images/ui-board.png',
