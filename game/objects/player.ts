@@ -9,6 +9,8 @@ interface Props {
 export class Player extends Phaser.GameObjects.Sprite {
   private cursorKeys?: Phaser.Types.Input.Keyboard.CursorKeys;
   public speed = 200;
+  public lastX = 0;
+  public lastY = 0;
 
   constructor({ scene, x, y, key }: Props) {
     super(scene, x, y, key);
@@ -47,6 +49,12 @@ export class Player extends Phaser.GameObjects.Sprite {
     this.scene.add.existing(this);
     //this.anims.play('idle', false);
     this.anims.play('right', false);
+  }
+
+  setLastXY(x: number, y: number)
+  {
+    this.lastX = x;
+    this.lastY = y;
   }
 
   update(): void {

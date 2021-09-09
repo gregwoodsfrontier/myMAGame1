@@ -168,26 +168,6 @@ export class BootScene extends Phaser.Scene {
           removeGlasses: true
         }),
       ],
-      /* // dead gotchi
-      [
-        customiseSvg(svg[0], { removeBg: true }),
-        customiseSvg(svg, {
-          eyes: "sleeping",
-          armsUp: false,
-          mouth: "neutral",
-          removeBg: true
-        }),
-      ],
-      // angry gotchi
-      [
-        customiseSvg(svg, { removeBg: true }),
-        customiseSvg(svg, {
-          eyes: "mad",
-          armsUp: false,
-          mouth: "neutral",
-          removeBg: true
-        }),
-      ], */
       // Left
       [
         customiseSvg(svg[1], { removeBg: true }),
